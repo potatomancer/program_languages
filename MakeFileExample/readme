@@ -1,0 +1,1 @@
+this makefile demonstrates use of the -lm flag so that math.h will work.
