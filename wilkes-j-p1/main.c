@@ -1,4 +1,5 @@
 #include "errorList.h"
+#include "linkedList.h"
 #include "lexicalAnalyzer.h"
 #include "parser.h"
 #include <stdio.h>
@@ -16,11 +17,13 @@ int main(int argc, char* argv[]) {
     beginAnalysis(file);
     if (isValidProgram()) {
       printf("Program valid!\n");
+      printList();
     } else {
       printf("Program invalid!  Here's why:\n");
       printErrorList();
     }
     fclose(file);
+    printf("\n");
   }
   return 0;
 }
