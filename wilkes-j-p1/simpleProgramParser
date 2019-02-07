@@ -1,5 +1,10 @@
 make
-./run prog1.txt
-./run prog2.txt
-./run prog3.txt
-./run prog4.txt
+./run prog1legal.txt
+./run prog2legal.txt
+./run prog3legal.txt
+./run prog4legal.txt
+./run prog1Illegal.txt
+./run prog2Illegal.txt
+./run prog3Illegal.txt
+./run prog4Illegal.txt
+make clean

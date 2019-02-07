@@ -35,7 +35,6 @@ void beginAnalysis(FILE *newFile)
   {
     result = analyzeChar(c);
   }
-  printList();
   printf("\n");
 }
 
