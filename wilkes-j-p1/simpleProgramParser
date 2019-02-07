@@ -1,0 +1,5 @@
+make
+./run prog1.txt
+./run prog2.txt
+./run prog3.txt
+./run prog4.txt
