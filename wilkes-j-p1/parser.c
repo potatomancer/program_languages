@@ -44,9 +44,12 @@ bool isValidProgram()
       {
         break;
       }
-      if (strcmp(runner->whatAmI, COMMENT) == 0) {
+      if (strcmp(runner->whatAmI, COMMENT) == 0)
+      {
         runner = runner->next;
-      } else {
+      }
+      else
+      {
         assignmentStatement();
       }
       //runner = runner->next;
@@ -60,16 +63,17 @@ bool isValidProgram()
       errorPush(runner->line, "ERROR: Program must end with 'end' reserved word.");
     }
   }
-    if (getErrorHead() != NULL)
-    {
-      return false;
-    }
-    else
-    {
-      return true;
-    }
+  if (getErrorHead() != NULL)
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 
+/* Pushes an error with a message into the error linked list */
 void errorPush(int line, char *errorMessage)
 {
   if (getErrorHead() == NULL)
@@ -82,6 +86,7 @@ void errorPush(int line, char *errorMessage)
   }
 }
 
+/* Begins the process for identifying an assignment statement in program */
 void assignmentStatement()
 {
   char *id = NULL;
@@ -112,6 +117,7 @@ void assignmentStatement()
   }
 }
 
+/* Identifies an expression in an assignment statement */
 bool expression()
 {
   if (term() && (strcmp(runner->word, ";")) && runner->next != NULL)
@@ -123,7 +129,7 @@ bool expression()
         runner = runner->next;
         if (!term())
         {
-          errorPush(runner->line, "ERROR: Invalid term 1."); 
+          errorPush(runner->line, "ERROR: Invalid term 1.");
           return false;
         }
         else if (runner->next != NULL && (strcmp(runner->word, ";") == 0))
@@ -132,10 +138,11 @@ bool expression()
         }
       }
     }
-  } 
-  else if (runner->next != NULL && (strcmp(runner->word, ";") == 0)) {
+  }
+  else if (runner->next != NULL && (strcmp(runner->word, ";") == 0))
+  {
     return true;
-  }  
+  }
   else
   {
     errorPush(runner->line, "ERROR: Invalid term 2.");
@@ -143,6 +150,7 @@ bool expression()
   }
 }
 
+/* Identifies a term in an expression */
 bool term()
 {
   if (factor() && runner->next != NULL)
@@ -167,6 +175,7 @@ bool term()
   }
 }
 
+/* Identifies a factor in a term */
 bool factor()
 {
   if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
@@ -202,5 +211,3 @@ bool factor()
     return false;
   }
 }
-
-
