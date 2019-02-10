@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 int main(int argc, char* argv[]) {
+  printf("**********************\nStarting program.\n");
   FILE *file;
   int c;
   if (argc > 1) {
@@ -17,13 +18,13 @@ int main(int argc, char* argv[]) {
     beginAnalysis(file);
     if (isValidProgram()) {
       printf("Program valid!\n");
-      printList();
+      printIdentifiers();
     } else {
       printf("Program invalid!  Here's why:\n");
       printErrorList();
     }
     fclose(file);
-    printf("\n");
+    printf("**********************\n");
   }
   return 0;
 }

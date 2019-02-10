@@ -1,5 +1,5 @@
 begin
-butt = 4/ 20;
-junk = butt;
+dump = 4/ 20;
+junk = dump;
 
 end

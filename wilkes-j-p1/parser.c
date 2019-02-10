@@ -23,6 +23,7 @@ struct lexemeNode
 #define DELIMITER "delimiter"
 #define IDENTIFIER "identifier"
 #define VALUE "value"
+#define COMMENT "comment"
 
 lexemeNode *runner = NULL;
 
@@ -36,19 +37,29 @@ bool isValidProgram()
   }
   else
   {
+    runner = runner->next;
     while (runner->next != NULL)
     {
-      if (strcmp(runner->word, "end"))
+      if (strcmp(runner->word, "end") == 0)
       {
         break;
       }
-      runner = runner->next;
-      assignmentStatement();
+      if (strcmp(runner->whatAmI, COMMENT) == 0) {
+        runner = runner->next;
+      } else {
+        assignmentStatement();
+      }
+      //runner = runner->next;
+      if (strcmp(runner->word, "end") == 0)
+      {
+        break;
+      }
     }
     if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, "end") != 0)
     {
       errorPush(runner->line, "ERROR: Program must end with 'end' reserved word.");
     }
+  }
     if (getErrorHead() != NULL)
     {
       return false;
@@ -57,7 +68,6 @@ bool isValidProgram()
     {
       return true;
     }
-  }
 }
 
 void errorPush(int line, char *errorMessage)
@@ -75,10 +85,10 @@ void errorPush(int line, char *errorMessage)
 void assignmentStatement()
 {
   char *id = NULL;
-  if (strcmp(runner->whatAmI, IDENTIFIER))
+  if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
   {
     id = runner->word;
-    if (runner->next != NULL && runner->next->word == "=")
+    if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
     {
       runner = runner->next->next;
       if (!expression())
@@ -104,28 +114,31 @@ void assignmentStatement()
 
 bool expression()
 {
-  if (term() && runner->next != NULL)
+  if (term() && (strcmp(runner->word, ";")) && runner->next != NULL)
   {
-    while (strcmp(runner->word, "+") || strcmp(runner->word, "-"))
+    while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
     {
       if (runner->next != NULL)
       {
         runner = runner->next;
         if (!term())
         {
-          errorPush(runner->line, "ERROR: Invalid term.");
+          errorPush(runner->line, "ERROR: Invalid term 1."); 
           return false;
         }
-        else if (runner->next != NULL && strcmp(runner->next, ";"))
+        else if (runner->next != NULL && (strcmp(runner->word, ";") == 0))
         {
           return true;
         }
       }
     }
-  }
+  } 
+  else if (runner->next != NULL && (strcmp(runner->word, ";") == 0)) {
+    return true;
+  }  
   else
   {
-    errorPush(runner->line, "ERROR: Invalid term.");
+    errorPush(runner->line, "ERROR: Invalid term 2.");
     return false;
   }
 }
@@ -134,7 +147,7 @@ bool term()
 {
   if (factor() && runner->next != NULL)
   {
-    while (strcmp(runner->word, "*") || strcmp(runner->word, "/"))
+    while ((strcmp(runner->word, "*") == 0) || (strcmp(runner->word, "/") == 0))
     {
       if (runner->next != NULL)
       {
@@ -145,31 +158,33 @@ bool term()
         }
       }
     }
+    return true;
   }
   else
   {
     errorPush(runner->line, "ERROR: Invalid factor.");
+    return false;
   }
 }
 
 bool factor()
 {
-  if (strcmp(runner->whatAmI, IDENTIFIER) && runner->next != NULL)
+  if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
   {
     runner = runner->next;
     return true;
   }
-  else if (strcmp(runner->whatAmI, VALUE) && runner->next != NULL)
+  else if ((strcmp(runner->whatAmI, VALUE) == 0) && runner->next != NULL)
   {
     runner = runner->next;
     return true;
   }
-  else if (strcmp(runner->word, "(") && runner->next != NULL)
+  else if ((strcmp(runner->word, "(") == 0) && runner->next != NULL)
   {
     runner = runner->next;
     if (runner->next != NULL)
     {
-      if (expression() && strcmp(runner->word, ")"))
+      if (expression() && (strcmp(runner->word, ")") == 0))
       {
         runner = runner->next;
         return true;
