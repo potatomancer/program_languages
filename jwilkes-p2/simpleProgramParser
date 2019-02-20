@@ -1,10 +1,10 @@
-make
-./run prog1legal.txt
-./run prog2legal.txt
-./run prog3legal.txt
-./run prog4legal.txt
-./run prog1Illegal.txt
-./run prog2Illegal.txt
-./run prog3Illegal.txt
-./run prog4Illegal.txt
-make clean
+sudo make
+sudo ./run prog1legal.txt
+sudo ./run prog2legal.txt
+sudo ./run prog3legal.txt
+sudo ./run prog4legal.txt
+sudo ./run prog1Illegal.txt
+sudo ./run prog2Illegal.txt
+sudo ./run prog3Illegal.txt
+sudo ./run prog4Illegal.txt
+sudo make clean
