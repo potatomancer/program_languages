@@ -17,12 +17,16 @@ char lexeme[30] = "";
 FILE *file;
 struct Node *LAhead = NULL;
 #define COMMENT '~'
+#define reservedWordsCount 3
+#define terminalOperatorsCount 7
+#define tokenTypeCount 5
+#define delimiterCount 4
 
-char *reservedWords[3] = {"begin", "end", "int"};
-char terminalOperators[7] = {'+', '-', '/', '*', '=', '(', ')'};
-char delimiter[] = {' ', '\t', ';', ','};
+char *reservedWords[reservedWordsCount] = {"begin", "end", "int"};
+char terminalOperators[terminalOperatorsCount] = {'+', '-', '/', '*', '=', '(', ')'};
+char delimiter[delimiterCount] = {' ', '\t', ';', ','};
+char *types[tokenTypeCount] = {"reserved word", "operator", "delimiter", "identifier", "value"};
 lexemeNode *parserHead = NULL;
-char *types[5] = {"reserved word", "operator", "delimiter", "identifier", "value"};
 
 /* Begins analysis of the file.  To be called in the main method. */
 void beginAnalysis(FILE *newFile)
@@ -174,7 +178,7 @@ void clearLexeme(int length)
 bool isReservedWord(char word[])
 {
   int index = 0;
-  for (index = 0; index < 2; index++)
+  for (index = 0; index < reservedWordsCount; index++)
   {
     if (strcmp(reservedWords[index], word) == 0)
     {
@@ -188,7 +192,7 @@ bool isReservedWord(char word[])
 bool isOperator(char c)
 {
   int i;
-  for (i = 0; i < 7; i++)
+  for (i = 0; i < terminalOperatorsCount; i++)
   {
     if (c == terminalOperators[i])
     {
@@ -202,7 +206,7 @@ bool isOperator(char c)
 bool isDelimiter(char c)
 {
   int i;
-  for (i = 0; i < 3; i++)
+  for (i = 0; i < delimiterCount; i++)
   {
     if (c == delimiter[i])
     {
