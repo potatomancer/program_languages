@@ -1,0 +1,6 @@
+begin
+~This is a comment
+  int x, y, z, b;
+  x = y + z;
+  z = b - 5;
+end

@@ -18,9 +18,9 @@ FILE *file;
 struct Node *LAhead = NULL;
 #define COMMENT '~'
 
-char *reservedWords[2] = {"begin", "end"};
+char *reservedWords[3] = {"begin", "end", "int"};
 char terminalOperators[7] = {'+', '-', '/', '*', '=', '(', ')'};
-char delimiter[] = {' ', '\t', ';'};
+char delimiter[] = {' ', '\t', ';', ','};
 lexemeNode *parserHead = NULL;
 char *types[5] = {"reserved word", "operator", "delimiter", "identifier", "value"};
 
@@ -145,7 +145,7 @@ int analyzeChar(char c)
   }
   else if (isDelimiter(c))
   {
-    if (c == ';')
+    if (c == ';' || c == ',')
     {
       lexeme[0] = c;
       pushToLL(lineno, lexeme, "delimiter");

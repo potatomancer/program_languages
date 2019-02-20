@@ -1,5 +1,0 @@
-begin
-dump = 4/ 20;
-junk = dump;
-
-end
