@@ -22,7 +22,7 @@ errorNode *errorPointer = NULL;
 /* Method to initially create the error linked list */
 errorNode *createErrorList(int line, char message[])
 {
-    printf("Creating Error List\n");
+    printf("Line %i: Creating Error List\n", line);
     errorHead = (errorNode *)malloc(sizeof(errorNode));
     errorHead->line = line;
     strcpy(errorHead->message, message);
