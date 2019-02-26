@@ -1,5 +1,6 @@
 begin
-dump = 4/ 20;
+int dump
+dump  = 4/ 20;
 junk = ;
 
 end
