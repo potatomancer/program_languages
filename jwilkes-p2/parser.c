@@ -177,6 +177,10 @@ void assignmentStatement()
     else
     {
       errorPush(runner->line, "ERROR: Invalid assignment statement.");
+      while (strcmp(runner->next->word, ";") != 0)
+      {
+        runner = runner->next;
+      }
     }
   }
   else

@@ -2,7 +2,7 @@ begin
   int x;
   int y;
   int z, b;
-  x = (y + z) * (z - asdf_9);
+  x = (y + z) * (z - 9);
   z = b - 5;
 end
 
