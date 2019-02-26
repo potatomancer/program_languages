@@ -131,40 +131,31 @@ void declarationStatement()
 /* Begins the process for identifying an assignment statement in program */
 void assignmentStatement()
 {
-  char *id = NULL;
-  if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
+  if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
-    id = runner->word;
-    if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
+    runner = runner->next->next;
+    if (!expression())
     {
-      runner = runner->next->next;
-      if (!expression())
-      {
-        pushError(runner->line, "ERROR: Invalid expression.");
-      }
-      else
-      {
-        runner = runner->next;
-        // runner->word == ";"
-      }
+      pushError(runner->line, "ERROR: Invalid expression.");
     }
     else
     {
-      pushError(runner->line, "ERROR: Invalid assignment statement.");
-      while (strcmp(runner->next->word, ";") != 0)
-      {
-        runner = runner->next;
-      }
       runner = runner->next;
-      if (runner->next != NULL)
-      {
-        runner = runner->next;
-      }
+      // runner->word == ";"
     }
   }
   else
   {
-    pushError(runner->line, "ERROR: No identifier found.");
+    pushError(runner->line, "ERROR: Invalid assignment statement.");
+    while (strcmp(runner->next->word, ";") != 0)
+    {
+      runner = runner->next;
+    }
+    runner = runner->next;
+    if (runner->next != NULL)
+    {
+      runner = runner->next;
+    }
   }
 }
 
