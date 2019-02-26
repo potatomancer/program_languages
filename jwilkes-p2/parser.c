@@ -168,12 +168,15 @@ void assignmentStatement()
     }
     else
     {
+      printf("1: %s\n", runner->word);
       errorPush(runner->line, "ERROR: Invalid assignment statement.");
       while (strcmp(runner->next->word, ";") != 0)
       {
         runner = runner->next;
+        printf("2: %s\n", runner->word);
       }
       runner = runner->next;
+      printf("3: %s\n", runner->word);
     }
   }
   else
