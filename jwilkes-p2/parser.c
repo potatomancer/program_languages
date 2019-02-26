@@ -49,8 +49,11 @@ bool isValidProgram()
       skipComments();
       while (strcmp(runner->word, INTEGER) == 0)
       {
+        printf("start dec statement\n");
         declarationStatement();
+        printf("end dec statement\n");
       }
+      printf("start comment check\n");
       skipComments();
       while (strcmp(runner->word, IDENTIFIER) == 0)
       {
