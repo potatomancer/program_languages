@@ -55,7 +55,7 @@ bool isValidProgram()
       }
       printf("start comment check\n");
       skipComments();
-      while (strcmp(runner->word, IDENTIFIER) == 0)
+      while (strcmp(runner->whatAmI, IDENTIFIER) == 0)
       {
         printf("Assignment Statement\n");
         assignmentStatement();
