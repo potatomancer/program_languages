@@ -5,9 +5,9 @@
 
 typedef struct declaredNode declaredNode;
 
-declaredNode *createDeclaredList(int line, char word[]);
-void pushDeclared(int line, char newWord[]);
-void printDeclaredList();
-declaredNode *getDeclaredHead();
+declaredNode *createDIList(int line, char word[]);
+void pushDI(int line, char newWord[]);
+void printDIList();
+declaredNode *getDIHead();
 
 #endif

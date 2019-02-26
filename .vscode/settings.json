@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "declaredidentifierslist.h": "c"
+    "declaredidentifierslist.h": "c",
+    "linkedlist.h": "c",
+    "parser.h": "c"
   }
 }

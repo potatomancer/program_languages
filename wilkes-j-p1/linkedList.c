@@ -56,10 +56,13 @@ void printList()
 }
 
 /* Prints all identifiers in linked list */
-void printIdentifiers() {
+void printIdentifiers()
+{
     pointer = head;
-    while (pointer != NULL) {
-        if (strcmp(pointer->whatAmI, "identifier") == 0) {
+    while (pointer != NULL)
+    {
+        if (strcmp(pointer->whatAmI, "identifier") == 0)
+        {
             printf("%s\n", pointer->word);
         }
         pointer = pointer->next;

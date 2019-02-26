@@ -5,7 +5,7 @@
 */
 
 #include "parser.h"
-#include "linkedList.h"
+#include "tokenList.h"
 #include "errorList.h"
 #include "declaredIdentifiersList.h"
 #include <string.h>
@@ -33,12 +33,10 @@ lexemeNode *runner = NULL;
 /* Returns result of parsing through program. */
 bool isValidProgram()
 {
-  int i = 0;
-
-  runner = getHead();
+  runner = getTokenHead();
   if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, "begin") != 0)
   {
-    errorPush(runner->line, "ERROR: Program must start with 'begin' reserved word.");
+    pushError(runner->line, "ERROR: Program must start with 'begin' reserved word.");
   }
   else
   {
@@ -66,15 +64,10 @@ bool isValidProgram()
       {
         break;
       }
-      if (i == 10)
-      {
-        break;
-      }
-      i++;
     }
     if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, END) != 0)
     {
-      errorPush(runner->line, "ERROR: Program must end with 'end' reserved word.");
+      pushError(runner->line, "ERROR: Program must end with 'end' reserved word.");
     }
   }
   if (getErrorHead() != NULL)
@@ -95,25 +88,12 @@ void skipComments()
   }
 }
 
-/* Pushes an error with a message into the error linked list */
-void errorPush(int line, char *errorMessage)
-{
-  if (getErrorHead() == NULL)
-  {
-    createErrorList(line, errorMessage);
-  }
-  else
-  {
-    pushToErrors(line, errorMessage);
-  }
-}
-
 void declarationStatement()
 {
   if (strcmp(runner->next->whatAmI, IDENTIFIER) == 0)
   {
     runner = runner->next;
-    pushDeclared(runner->line, runner->word);
+    pushDI(runner->line, runner->word);
     if (runner->next != NULL && strcmp(runner->next->word, ",") == 0)
     {
       runner = runner->next;
@@ -121,7 +101,7 @@ void declarationStatement()
     }
     else if (runner->next != NULL && strcmp(runner->next->word, "=") == 0)
     {
-      errorPush(runner->line, "ERROR: Assignment is not allowed in declaration statement.");
+      pushError(runner->line, "ERROR: Assignment is not allowed in declaration statement.");
       while (strcmp(runner->next->word, ";") == 0 || strcmp(runner->next->word, END) == 0)
       {
         runner = runner->next;
@@ -137,12 +117,12 @@ void declarationStatement()
     }
     else
     {
-      errorPush(runner->line, "ERROR: Invalid declaration statement.");
+      pushError(runner->line, "ERROR: Invalid declaration statement.");
     }
   }
   else
   {
-    errorPush(runner->line, "ERROR: Invalid declaration statement.");
+    pushError(runner->line, "ERROR: Invalid declaration statement.");
   }
 }
 
@@ -158,7 +138,7 @@ void assignmentStatement()
       runner = runner->next->next;
       if (!expression())
       {
-        errorPush(runner->line, "ERROR: Invalid expression.");
+        pushError(runner->line, "ERROR: Invalid expression.");
       }
       else
       {
@@ -169,7 +149,7 @@ void assignmentStatement()
     else
     {
       printf("1: %s\n", runner->word);
-      errorPush(runner->line, "ERROR: Invalid assignment statement.");
+      pushError(runner->line, "ERROR: Invalid assignment statement.");
       while (strcmp(runner->next->word, ";") != 0)
       {
         runner = runner->next;
@@ -185,7 +165,7 @@ void assignmentStatement()
   }
   else
   {
-    errorPush(runner->line, "ERROR: No identifier found.");
+    pushError(runner->line, "ERROR: No identifier found.");
   }
 }
 
@@ -201,7 +181,7 @@ bool expression()
         runner = runner->next;
         if (!term())
         {
-          errorPush(runner->line, "ERROR: Invalid term 1.");
+          pushError(runner->line, "ERROR: Invalid term 1.");
           return false;
         }
         else if (runner->next != NULL && (strcmp(runner->word, ";") == 0))
@@ -217,7 +197,7 @@ bool expression()
   }
   else
   {
-    errorPush(runner->line, "ERROR: Invalid term 2.");
+    pushError(runner->line, "ERROR: Invalid term 2.");
     return false;
   }
 }
@@ -234,7 +214,7 @@ bool term()
         runner = runner->next;
         if (!factor())
         {
-          errorPush(runner->line, "ERROR: Invalid factor.");
+          pushError(runner->line, "ERROR: Invalid factor.");
         }
       }
     }
@@ -242,7 +222,7 @@ bool term()
   }
   else
   {
-    errorPush(runner->line, "ERROR: Invalid factor.");
+    pushError(runner->line, "ERROR: Invalid factor.");
     return false;
   }
 }
@@ -273,13 +253,13 @@ bool factor()
     }
     else
     {
-      errorPush(runner->line, "ERROR: Errant open parathensis.");
+      pushError(runner->line, "ERROR: Errant open parathensis.");
       return false;
     }
   }
   else
   {
-    errorPush(runner->line, "ERROR: Invalid character or value.");
+    pushError(runner->line, "ERROR: Invalid character or value.");
     return false;
   }
 }

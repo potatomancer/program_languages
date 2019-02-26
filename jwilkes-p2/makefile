@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = lexicalAnalyzer.h parser.h linkedList.h errorList.h declaredIdentifiersList.h
-OBJ = main.o lexicalAnalyzer.o parser.o linkedList.o errorList.o declaredIdentifiersList.o
+DEPS = lexicalAnalyzer.h parser.h tokenList.h errorList.h declaredIdentifiersList.h
+OBJ = main.o lexicalAnalyzer.o parser.o tokenList.o errorList.o declaredIdentifiersList.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

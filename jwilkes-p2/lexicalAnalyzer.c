@@ -5,7 +5,7 @@
 */
 
 #include "lexicalAnalyzer.h"
-#include "linkedList.h"
+#include "tokenList.h"
 #include "parser.h"
 #include "errorList.h"
 #include <string.h>
@@ -55,7 +55,7 @@ int analyzeChar(char c)
       i++;
       c = (char)fgetc(file);
     }
-    pushToLL(lineno, lexeme, "comment");
+    pushToken(lineno, lexeme, "comment");
     lineno++;
     clearLexeme(strlen(lexeme));
     return 0;
@@ -84,7 +84,7 @@ int analyzeChar(char c)
                 }
                 else
                 {
-                  pushToErrors(lineno, "ERROR: Cannot have more than one dot operator.");
+                  pushError(lineno, "ERROR: Cannot have more than one dot operator.");
                 }
               }
             }
@@ -98,7 +98,7 @@ int analyzeChar(char c)
           break;
         }
       }
-      pushToLL(lineno, lexeme, "value");
+      pushToken(lineno, lexeme, "value");
       clearLexeme(strlen(lexeme));
       return c;
     }
@@ -112,14 +112,7 @@ int analyzeChar(char c)
     {
       if (c == '_' && lexeme[i - 1] == '_')
       {
-        if (getErrorHead() == NULL)
-        {
-          createErrorList(lineno, "ERROR: Cannot have multiple underscores.");
-        }
-        else
-        {
-          pushToErrors(lineno, "ERROR: Cannot have multiple underscores.");
-        }
+        pushError(lineno, "ERROR: Cannot have multiple underscores.");
         break;
       }
       lexeme[i] = c;
@@ -129,12 +122,12 @@ int analyzeChar(char c)
     ungetc(c, file);
     if (isReservedWord(lexeme))
     {
-      pushToLL(lineno, lexeme, "reserved word");
+      pushToken(lineno, lexeme, "reserved word");
       clearLexeme(strlen(lexeme));
     }
     else
     {
-      pushToLL(lineno, lexeme, "identifier");
+      pushToken(lineno, lexeme, "identifier");
       clearLexeme(strlen(lexeme));
     }
     return 0;
@@ -142,7 +135,7 @@ int analyzeChar(char c)
   else if (isOperator(c))
   {
     lexeme[0] = c;
-    pushToLL(lineno, lexeme, "operator");
+    pushToken(lineno, lexeme, "operator");
     clearLexeme(strlen(lexeme));
     return c;
   }
@@ -151,7 +144,7 @@ int analyzeChar(char c)
     if (c == ';' || c == ',')
     {
       lexeme[0] = c;
-      pushToLL(lineno, lexeme, "delimiter");
+      pushToken(lineno, lexeme, "delimiter");
       clearLexeme(strlen(lexeme));
     }
     return c;
@@ -213,17 +206,4 @@ bool isDelimiter(char c)
     }
   }
   return false;
-}
-
-/* Pushes a token into the linked list */
-void pushToLL(int line, char lexeme[], char whatAmI[])
-{
-  if (parserHead == NULL)
-  {
-    parserHead = createList(line, lexeme, whatAmI);
-  }
-  else
-  {
-    push(line, lexeme, whatAmI);
-  }
 }

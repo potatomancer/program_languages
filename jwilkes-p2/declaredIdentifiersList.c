@@ -20,7 +20,7 @@ declaredNode *declaredHead = NULL;
 declaredNode *declaredPointer = NULL;
 
 /* Method to initially create the token linked list */
-declaredNode *createDeclaredList(int line, char newWord[])
+declaredNode *createDIList(int line, char newWord[])
 {
   declaredHead = (declaredNode *)malloc(sizeof(declaredNode));
   declaredHead->line = line;
@@ -31,11 +31,11 @@ declaredNode *createDeclaredList(int line, char newWord[])
 }
 
 /* Method to push new data into token linked list */
-void pushDeclared(int line, char newWord[])
+void pushDI(int line, char newWord[])
 {
   if (declaredHead == NULL)
   {
-    createDeclaredList(line, newWord);
+    createDIList(line, newWord);
   }
   else
   {
@@ -48,7 +48,7 @@ void pushDeclared(int line, char newWord[])
 }
 
 /* Method to print all nodes and node data in token linked list */
-void printDeclaredList()
+void printDIList()
 {
   declaredPointer = declaredHead;
   while (declaredPointer != NULL)
@@ -59,7 +59,7 @@ void printDeclaredList()
 }
 
 /* Returns head of token linked list */
-declaredNode *getDeclaredHead()
+declaredNode *getDIHead()
 {
   return declaredHead;
 }

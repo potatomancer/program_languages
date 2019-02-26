@@ -1,15 +1,14 @@
-#ifndef linkedList
-#define linkedList
+#ifndef tokenList
+#define tokenList
 #include <stdlib.h>
 #include <stdio.h>
 
 typedef struct lexemeNode lexemeNode;
 
 lexemeNode *createList(int line, char word[], char whatAmI[]);
-void push(int line, char newWord[], char whatAmI[]);
-void printList();
-char *getCurrentWord();
+void pushToken(int line, char newWord[], char whatAmI[]);
+void printTokenList();
 char *getCurrentIdentifier();
-lexemeNode *getHead();
+lexemeNode *getTokenHead();
 
 #endif

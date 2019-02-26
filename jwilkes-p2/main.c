@@ -1,5 +1,5 @@
 #include "errorList.h"
-#include "linkedList.h"
+#include "tokenList.h"
 #include "lexicalAnalyzer.h"
 #include "declaredIdentifiersList.h"
 #include "parser.h"
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     if (isValidProgram())
     {
       printf("Program valid!\n");
-      printDeclaredList();
+      printDIList();
     }
     else
     {

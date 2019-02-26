@@ -31,13 +31,20 @@ errorNode *createErrorList(int line, char message[])
 }
 
 /* Method to push new data into error linked list */
-void pushToErrors(int line, char message[])
+void pushError(int line, char message[])
 {
-    errorPointer->next = (errorNode *)malloc(sizeof(errorNode));
-    errorPointer = errorPointer->next;
-    errorPointer->line = line;
-    strcpy(errorPointer->message, message);
-    errorPointer->next = NULL;
+    if (errorHead == NULL)
+    {
+        createErrorList(line, message);
+    }
+    else
+    {
+        errorPointer->next = (errorNode *)malloc(sizeof(errorNode));
+        errorPointer = errorPointer->next;
+        errorPointer->line = line;
+        strcpy(errorPointer->message, message);
+        errorPointer->next = NULL;
+    }
 }
 
 /* Method to print all nodes and node data in error linked list */
