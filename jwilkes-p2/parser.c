@@ -76,7 +76,7 @@ bool isValidProgram()
   }
 }
 
-skipComments()
+void skipComments()
 {
   while (strcmp(runner->whatAmI, COMMENT) == 0)
   {

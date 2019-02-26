@@ -10,5 +10,7 @@ void assignmentStatement();
 bool expression();
 bool term();
 bool factor();
+void skipComments();
+void declarationStatement();
 
 #endif
