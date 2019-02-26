@@ -5,7 +5,7 @@
 
 typedef struct lexemeNode lexemeNode;
 
-lexemeNode *createList(int line, char word[], char whatAmI[]);
+lexemeNode *createTokenList(int line, char word[], char whatAmI[]);
 void pushToken(int line, char newWord[], char whatAmI[]);
 void printTokenList();
 char *getCurrentIdentifier();

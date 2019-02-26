@@ -1,7 +1,7 @@
 /* This file analyzes a text file one character at a time, identifies tokens, and inserts the identified tokens into the linked list.
  * Author: Joshua Wilkes
- * Version: 1.0
- * Last Updated: 02/07/2019
+ * Version: 2.0
+ * Last Updated: 02/25/2019
 */
 
 #include "lexicalAnalyzer.h"

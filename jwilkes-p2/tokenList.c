@@ -1,7 +1,7 @@
 /* This file creates a linked list to store tokens found in the given text file. 
  * Author: Joshua Wilkes
- * Version: 1.0
- * Last Updated: 02/07/2019
+ * Version: 2.0
+ * Last Updated: 02/25/2019
 */
 
 #include "tokenList.h"
@@ -21,7 +21,7 @@ lexemeNode *tokenHead = NULL;
 lexemeNode *tokenPointer = NULL;
 
 /* Method to initially create the token linked list */
-lexemeNode *createList(int line, char newWord[], char whatAmI[])
+lexemeNode *createTokenList(int line, char newWord[], char whatAmI[])
 {
     tokenHead = (lexemeNode *)malloc(sizeof(lexemeNode));
     tokenHead->line = line;
@@ -37,7 +37,7 @@ void pushToken(int line, char newWord[], char whatAmI[])
 {
     if (tokenHead == NULL)
     {
-        createList(line, newWord, whatAmI);
+        createTokenList(line, newWord, whatAmI);
     }
     else
     {

@@ -19,7 +19,7 @@ struct declaredNode
 declaredNode *declaredHead = NULL;
 declaredNode *declaredPointer = NULL;
 
-/* Method to initially create the token linked list */
+/* Method to initially create the declared identifiers linked list */
 declaredNode *createDIList(int line, char newWord[])
 {
   declaredHead = (declaredNode *)malloc(sizeof(declaredNode));
@@ -30,7 +30,7 @@ declaredNode *createDIList(int line, char newWord[])
   return declaredHead;
 }
 
-/* Method to push new data into token linked list */
+/* Method to push new data into declared identifiers linked list */
 void pushDI(int line, char newWord[])
 {
   if (declaredHead == NULL)
@@ -47,7 +47,7 @@ void pushDI(int line, char newWord[])
   }
 }
 
-/* Method to print all nodes and node data in token linked list */
+/* Method to print all nodes and node data in declared identifiers linked list */
 void printDIList()
 {
   declaredPointer = declaredHead;
@@ -58,7 +58,7 @@ void printDIList()
   }
 }
 
-/* Returns head of token linked list */
+/* Returns head of declared identifiers linked list */
 declaredNode *getDIHead()
 {
   return declaredHead;

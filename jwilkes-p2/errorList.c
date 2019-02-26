@@ -1,7 +1,7 @@
 /* This file creates a linked list to store errors found in the code. 
  * Author: Joshua Wilkes
- * Version: 1.0
- * Last Updated: 02/07/2019
+ * Version: 2.0
+ * Last Updated: 02/25/2019
 */
 
 #include <errorList.h>

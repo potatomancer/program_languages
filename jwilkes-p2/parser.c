@@ -1,7 +1,7 @@
 /* This file iterates through the token linked list and checks if the order of tokens/types is valid based on the rules set forth in the project. 
  * Author: Joshua Wilkes
- * Version: 1.0
- * Last Updated: 02/07/2019
+ * Version: 2.0
+ * Last Updated: 02/25/2019
 */
 
 #include "parser.h"
@@ -80,6 +80,7 @@ bool isValidProgram()
   }
 }
 
+/* Skips all lines of comments during parsing */
 void skipComments()
 {
   while (strcmp(runner->whatAmI, COMMENT) == 0)
@@ -88,6 +89,7 @@ void skipComments()
   }
 }
 
+/* Identifies a declaration statement and inserts valid identifies into declared identifiers linked list */
 void declarationStatement()
 {
   if (strcmp(runner->next->whatAmI, IDENTIFIER) == 0)
@@ -148,19 +150,16 @@ void assignmentStatement()
     }
     else
     {
-      printf("1: %s\n", runner->word);
       pushError(runner->line, "ERROR: Invalid assignment statement.");
       while (strcmp(runner->next->word, ";") != 0)
       {
         runner = runner->next;
-        printf("2: %s\n", runner->word);
       }
       runner = runner->next;
       if (runner->next != NULL)
       {
         runner = runner->next;
       }
-      printf("3: %s\n", runner->word);
     }
   }
   else
