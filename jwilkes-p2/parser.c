@@ -59,6 +59,7 @@ bool isValidProgram()
       {
         printf("Assignment Statement\n");
         assignmentStatement();
+        runner = runner->next;
       }
       if (strcmp(runner->word, END) == 0)
       {
