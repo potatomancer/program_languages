@@ -11,6 +11,5 @@ void printList();
 char *getCurrentWord();
 char *getCurrentIdentifier();
 lexemeNode *getHead();
-void printIdentifiers();
 
 #endif

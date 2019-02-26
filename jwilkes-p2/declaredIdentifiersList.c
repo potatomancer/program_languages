@@ -22,7 +22,6 @@ declaredNode *declaredPointer = NULL;
 /* Method to initially create the token linked list */
 declaredNode *createDeclaredList(int line, char newWord[])
 {
-  printf("Creating Linked List\n");
   declaredHead = (declaredNode *)malloc(sizeof(declaredNode));
   declaredHead->line = line;
   strcpy(declaredHead->word, newWord);

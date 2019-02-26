@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
       printErrorList();
     }
     fclose(file);
-    printf("**********************\n");
+    printf("**********************\n\n");
   }
   return 0;
 }

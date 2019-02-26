@@ -39,7 +39,6 @@ void beginAnalysis(FILE *newFile)
   {
     result = analyzeChar(c);
   }
-  printf("\n");
 }
 
 /* A char is passed in from the file and when it is identified by the method, the rest of the token is gathered, identified, and passed into the linked list */

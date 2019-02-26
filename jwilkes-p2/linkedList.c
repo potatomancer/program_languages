@@ -23,7 +23,6 @@ lexemeNode *pointer = NULL;
 /* Method to initially create the token linked list */
 lexemeNode *createList(int line, char newWord[], char whatAmI[])
 {
-    printf("Creating Linked List\n");
     head = (lexemeNode *)malloc(sizeof(lexemeNode));
     head->line = line;
     strcpy(head->word, newWord);
@@ -51,17 +50,6 @@ void printList()
     while (pointer != NULL)
     {
         printf("%i: '%s': %s\n", pointer->line, pointer->word, pointer->whatAmI);
-        pointer = pointer->next;
-    }
-}
-
-/* Prints all identifiers in linked list */
-void printIdentifiers() {
-    pointer = head;
-    while (pointer != NULL) {
-        if (strcmp(pointer->whatAmI, "identifier") == 0) {
-            printf("%s\n", pointer->word);
-        }
         pointer = pointer->next;
     }
 }
