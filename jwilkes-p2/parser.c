@@ -60,7 +60,7 @@ bool isValidProgram()
         printf("start comment check\n");
         skipComments();
       }
-      else
+      else if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
       {
         printf("Assignment Statement\n");
         assignmentStatement();
