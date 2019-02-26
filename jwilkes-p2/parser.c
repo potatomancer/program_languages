@@ -99,10 +99,12 @@ void errorPush(int line, char *errorMessage)
 
 void declarationStatement()
 {
+  printf("What is it tho: %s\n", runner->next->whatAmI);
   if (strcmp(runner->next->whatAmI, IDENTIFIER) == 0)
   {
     runner = runner->next;
     //add runner to declared identifiers linked list
+    printf("Check for comma or semi: %s\n", runner->next->word);
     if (runner->next != NULL && strcmp(runner->next->word, ",") == 0)
     {
       runner = runner->next;
@@ -111,6 +113,7 @@ void declarationStatement()
     else if (runner->next != NULL && strcmp(runner->next->word, ";") == 0)
     {
       runner = runner->next;
+      printf("After semi: %s\n", runner->next->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
@@ -118,11 +121,13 @@ void declarationStatement()
     }
     else
     {
+      printf("Failed on inner error: %s\n", runner->next->word);
       errorPush(runner->line, "ERROR: Invalid declaration statement.");
     }
   }
   else
   {
+    printf("Failed on outer error: %s\n", runner->next->word);
     errorPush(runner->line, "ERROR: Invalid declaration statement.");
   }
 }
