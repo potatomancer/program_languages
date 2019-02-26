@@ -114,7 +114,7 @@ void declarationStatement()
     else if (runner->next != NULL && strcmp(runner->next->word, "=") == 0)
     {
       errorPush(runner->line, "ERROR: Assignment is not allowed in declaration statement.");
-      while (strcmp(runner->next, ";") == 0 || strcmp(runner->next, END) == 0)
+      while (strcmp(runner->next->word, ";") == 0 || strcmp(runner->next->word, END) == 0)
       {
         runner = runner->next;
       }
