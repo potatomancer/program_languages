@@ -173,6 +173,7 @@ void assignmentStatement()
       {
         runner = runner->next;
       }
+      runner = runner->next;
     }
   }
   else
