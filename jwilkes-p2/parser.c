@@ -54,6 +54,7 @@ bool isValidProgram()
       skipComments();
       while (strcmp(runner->word, IDENTIFIER) == 0)
       {
+        printf("Assignment Statement\n");
         assignmentStatement();
       }
       if (strcmp(runner->word, END) == 0)
@@ -109,6 +110,14 @@ void declarationStatement()
     {
       runner = runner->next;
       declarationStatement();
+    }
+    else if (runner->next != NULL && strcmp(runner->next->word, "=") == 0)
+    {
+      errorPush(runner->line, "ERROR: Assignment is not allowed in declaration statement.");
+      while (strcmp(runner->next, ";") == 0 || strcmp(runner->next, END) == 0)
+      {
+        runner = runner->next;
+      }
     }
     else if (runner->next != NULL && strcmp(runner->next->word, ";") == 0)
     {
