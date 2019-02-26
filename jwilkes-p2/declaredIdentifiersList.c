@@ -16,44 +16,51 @@ struct declaredNode
   declaredNode *next;
 };
 
-declaredNode *head = NULL;
-declaredNode *pointer = NULL;
+declaredNode *declaredHead = NULL;
+declaredNode *declaredPointer = NULL;
 
 /* Method to initially create the token linked list */
 declaredNode *createDeclaredList(int line, char newWord[])
 {
   printf("Creating Linked List\n");
-  head = (declaredNode *)malloc(sizeof(declaredNode));
-  head->line = line;
-  strcpy(head->word, newWord);
-  head->next = NULL;
-  pointer = head;
-  return head;
+  declaredHead = (declaredNode *)malloc(sizeof(declaredNode));
+  declaredHead->line = line;
+  strcpy(declaredHead->word, newWord);
+  declaredHead->next = NULL;
+  declaredPointer = declaredHead;
+  return declaredHead;
 }
 
 /* Method to push new data into token linked list */
 void pushDeclared(int line, char newWord[])
 {
-  pointer->next = (declaredNode *)malloc(sizeof(declaredNode));
-  pointer = pointer->next;
-  pointer->line = line;
-  strcpy(pointer->word, newWord);
-  pointer->next = NULL;
+  if (declaredHead == NULL)
+  {
+    createDeclaredList(line, newWord);
+  }
+  else
+  {
+    declaredPointer->next = (declaredNode *)malloc(sizeof(declaredNode));
+    declaredPointer = declaredPointer->next;
+    declaredPointer->line = line;
+    strcpy(declaredPointer->word, newWord);
+    declaredPointer->next = NULL;
+  }
 }
 
 /* Method to print all nodes and node data in token linked list */
 void printDeclaredList()
 {
-  pointer = head;
-  while (pointer != NULL)
+  declaredPointer = declaredHead;
+  while (declaredPointer != NULL)
   {
-    printf("%i: '%s'\n", pointer->line, pointer->word);
-    pointer = pointer->next;
+    printf("%i: '%s'\n", declaredPointer->line, declaredPointer->word);
+    declaredPointer = declaredPointer->next;
   }
 }
 
 /* Returns head of token linked list */
 declaredNode *getDeclaredHead()
 {
-  return head;
+  return declaredHead;
 }
