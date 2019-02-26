@@ -1,0 +1,45 @@
+If not already: change owner of all files in your home directory to YOU
+  sudo chown -R josh: .
+  This command changes every file from the current directory DOWN to have you as the owner 
+
+Generate SSH Key on Linux Server
+  enter: ssh-keygen -t rsa -b 4096 -C "EMAIL@EMAIL.EMAIL"
+  Press enter to make it go to default directory
+  Enter passphrase
+
+Copy public key to github
+  In Windows, go to github.com:
+    click your FACE, 
+    click settings, 
+    select "SSH and GPG keys"
+    select "New SSH Key"
+    COPY ~/.ssh/id_rsa.pub from server to github and touch nothing else about it
+    "Add SSH Key"
+
+Change git remote on Linux Server for repo
+  Navigate to repo
+  "git remote -v" shows you the fetch/push urls for repo
+  "git remote set-url origin git@github.com:USERNAME/REPOSITORY.git"
+  Now the push command will look for SSH instead of HTTPS
+  It will still ask for your passphrase, though:
+
+Add ssh-agent to startup script 
+  You want to do this because it will prevent you from being required to enter your passphrase when you actually do a git push
+  vim ~/.bashrc
+  .bashrc is basically a script that runs for only you when you log in to the server
+  Go to the very bottom of the file and enter:
+    eval `ssh-agent`
+    ##This turns on the ssh-agent
+    ssh-add
+    ##This adds your identity to the agent
+    ##You will be prompted for your personal ssh passphrase on login now  Now, on login, you will put your passphrase for ssh in and won't have to when you git push
+
+Make the script:
+  Navigate to repo directory
+  vim pushScript
+    git add .
+    git commit -m $0
+    ##"$0" takes the first argument given to pushScript when you run it
+    git push -u origin master
+  
+Now it shouldn't ask you for your passphrase and you've kept pushing to github from your linux machine secure!  Good job, buttfart!
