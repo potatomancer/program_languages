@@ -47,7 +47,7 @@ bool isValidProgram()
         break;
       }
       skipComments();
-      while (strcmp(runner->word, INTEGER) == 0)
+      if (strcmp(runner->word, INTEGER) == 0)
       {
         printf("start dec statement\n");
         declarationStatement();
@@ -55,7 +55,7 @@ bool isValidProgram()
       }
       printf("start comment check\n");
       skipComments();
-      while (strcmp(runner->whatAmI, IDENTIFIER) == 0)
+      if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
       {
         printf("Assignment Statement\n");
         assignmentStatement();
@@ -148,10 +148,6 @@ void declarationStatement()
 void assignmentStatement()
 {
   char *id = NULL;
-  /*   if (strcmp(runner->word, INTEGER) == 0)
-  {
-    runner = runner->next;
-  } */
   if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
   {
     id = runner->word;
