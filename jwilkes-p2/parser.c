@@ -32,6 +32,8 @@ lexemeNode *runner = NULL;
 /* Returns result of parsing through program. */
 bool isValidProgram()
 {
+  int i = 0;
+
   runner = getHead();
   if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, "begin") != 0)
   {
@@ -67,6 +69,11 @@ bool isValidProgram()
       {
         break;
       }
+      if (i == 10)
+      {
+        break;
+      }
+      i++;
     }
     if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, END) != 0)
     {
