@@ -53,13 +53,15 @@ bool isValidProgram()
         declarationStatement();
         printf("end dec statement\n");
       }
-      printf("start comment check\n");
-      skipComments();
-      if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
+      if (strcmp(runner->whatAmI, COMMENT) == 0)
+      {
+        printf("start comment check\n");
+        skipComments();
+      }
+      else
       {
         printf("Assignment Statement\n");
         assignmentStatement();
-        runner = runner->next;
       }
       if (strcmp(runner->word, END) == 0)
       {
