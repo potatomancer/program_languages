@@ -176,6 +176,10 @@ void assignmentStatement()
         printf("2: %s\n", runner->word);
       }
       runner = runner->next;
+      if (runner->next != NULL)
+      {
+        runner = runner->next;
+      }
       printf("3: %s\n", runner->word);
     }
   }
