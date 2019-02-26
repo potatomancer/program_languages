@@ -19,6 +19,8 @@ struct lexemeNode
 };
 
 #define RESWORD "reserved word"
+#define INTEGER "int"
+#define END "end"
 #define OPERATOR "operator"
 #define DELIMITER "delimiter"
 #define IDENTIFIER "identifier"
@@ -40,25 +42,26 @@ bool isValidProgram()
     runner = runner->next;
     while (runner->next != NULL)
     {
-      if (strcmp(runner->word, "end") == 0)
+      if (strcmp(runner->word, END) == 0)
       {
         break;
       }
-      if (strcmp(runner->whatAmI, COMMENT) == 0)
+      skipComments();
+      while (strcmp(runner->word, INTEGER) == 0)
       {
-        runner = runner->next;
+        declarationStatement();
       }
-      else
+      skipComments();
+      while (strcmp(runner->word, IDENTIFIER) == 0)
       {
         assignmentStatement();
       }
-      //runner = runner->next;
-      if (strcmp(runner->word, "end") == 0)
+      if (strcmp(runner->word, END) == 0)
       {
         break;
       }
     }
-    if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, "end") != 0)
+    if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, END) != 0)
     {
       errorPush(runner->line, "ERROR: Program must end with 'end' reserved word.");
     }
@@ -70,6 +73,14 @@ bool isValidProgram()
   else
   {
     return true;
+  }
+}
+
+skipComments()
+{
+  while (strcmp(runner->whatAmI, COMMENT) == 0)
+  {
+    runner = runner->next;
   }
 }
 
@@ -86,10 +97,44 @@ void errorPush(int line, char *errorMessage)
   }
 }
 
+void declarationStatement()
+{
+  if (strcmp(runner->next->whatAmI, IDENTIFIER) == 0)
+  {
+    runner = runner->next;
+    //add runner to declared identifiers linked list
+    if (runner->next != NULL && strcmp(runner->next->word, ",") == 0)
+    {
+      runner = runner->next;
+      declarationStatement();
+    }
+    else if (runner->next != NULL && strcmp(runner->next->word, ";") == 0)
+    {
+      runner = runner->next;
+      if (runner->next != NULL)
+      {
+        runner = runner->next;
+      }
+    }
+    else
+    {
+      errorPush(runner->line, "ERROR: Invalid declaration statement.");
+    }
+  }
+  else
+  {
+    errorPush(runner->line, "ERROR: Invalid declaration statement.");
+  }
+}
+
 /* Begins the process for identifying an assignment statement in program */
 void assignmentStatement()
 {
   char *id = NULL;
+  /*   if (strcmp(runner->word, INTEGER) == 0)
+  {
+    runner = runner->next;
+  } */
   if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
   {
     id = runner->word;
