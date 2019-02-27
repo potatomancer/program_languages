@@ -12,4 +12,6 @@ void printDIList();
 declaredNode *getDIHead();
 bool isIdentifierDeclared();
 
+void printDIListBackwards();
+
 #endif

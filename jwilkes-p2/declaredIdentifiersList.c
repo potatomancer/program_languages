@@ -15,6 +15,7 @@ struct declaredNode
   int line;
   char word[30];
   declaredNode *next;
+  declaredNode *last;
 };
 
 declaredNode *declaredHead = NULL;
@@ -27,6 +28,7 @@ declaredNode *createDIList(int line, char newWord[])
   declaredHead->line = line;
   strcpy(declaredHead->word, newWord);
   declaredHead->next = NULL;
+  declaredHead->last = NULL;
   declaredPointer = declaredHead;
   return declaredHead;
 }
@@ -41,6 +43,7 @@ void pushDI(int line, char newWord[])
   else
   {
     declaredPointer->next = (declaredNode *)malloc(sizeof(declaredNode));
+    declaredPointer->last = declaredPointer;
     declaredPointer = declaredPointer->next;
     declaredPointer->line = line;
     strcpy(declaredPointer->word, newWord);
@@ -51,11 +54,21 @@ void pushDI(int line, char newWord[])
 /* Method to print all nodes and node data in declared identifiers linked list */
 void printDIList()
 {
-  declaredPointer = declaredHead;
-  while (declaredPointer != NULL)
+  declaredNode *printer = declaredHead;
+  while (printer != NULL)
   {
-    printf("%i: '%s'\n", declaredPointer->line, declaredPointer->word);
-    declaredPointer = declaredPointer->next;
+    printf("'%s'\n", printer->word);
+    printer = printer->next;
+  }
+}
+
+void printDIListBackwards()
+{
+  declaredNode *printer = declaredPointer;
+  while (printer != NULL)
+  {
+    printf("'%s'\n", printer->word);
+    printer = printer->last;
   }
 }
 
@@ -68,10 +81,10 @@ declaredNode *getDIHead()
 bool isIdentifierDeclared(char identifier[])
 {
   bool flag = false;
-  declaredPointer = declaredHead;
-  while (declaredPointer != NULL)
+  declaredNode *mover = declaredHead;
+  while (mover != NULL)
   {
-    if (strcmp(declaredPointer->word, identifier) == 0)
+    if (strcmp(mover->word, identifier) == 0)
     {
       flag = true;
     }

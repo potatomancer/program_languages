@@ -10,6 +10,16 @@ int main(int argc, char *argv[])
   printf("**********************\nStarting program.\n");
   FILE *file;
   int c;
+
+  pushDI(0, "1");
+  pushDI(0, "2");
+  pushDI(0, "3");
+  pushDI(0, "4");
+  pushDI(0, "5");
+  pushDI(0, "6");
+  pushDI(0, "7");
+  printDIListBackwards();
+
   if (argc > 1)
   {
     file = fopen(argv[1], "r");
