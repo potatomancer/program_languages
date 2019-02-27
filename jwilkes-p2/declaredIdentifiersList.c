@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 struct declaredNode
 {
@@ -62,4 +63,18 @@ void printDIList()
 declaredNode *getDIHead()
 {
   return declaredHead;
+}
+
+bool isIdentifierDeclared(char identifier[])
+{
+  bool flag = false;
+  declaredPointer = declaredHead;
+  while (declaredPointer != NULL)
+  {
+    if (strcmp(declaredPointer->word, identifier) == 0)
+    {
+      flag = true;
+    }
+  }
+  return flag;
 }

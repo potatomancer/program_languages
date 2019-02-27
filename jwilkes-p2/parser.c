@@ -8,6 +8,7 @@
 #include "tokenList.h"
 #include "errorList.h"
 #include "declaredIdentifiersList.h"
+#include "registerStack.h"
 #include <string.h>
 #include <stdbool.h>
 
@@ -134,14 +135,14 @@ void assignmentStatement()
   if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
     runner = runner->next->next;
-    if (!expression())
-    {
-      pushError(runner->line, "ERROR: Invalid expression.");
-    }
-    else
+    if (expression())
     {
       runner = runner->next;
       // runner->word == ";"
+    }
+    else
+    {
+      pushError(runner->line, "ERROR: Invalid expression.");
     }
   }
   else
@@ -169,7 +170,7 @@ bool expression()
       if (runner->next != NULL)
       {
         runner = runner->next;
-        if (!term())
+        if (term())
         {
           pushError(runner->line, "ERROR: Invalid term 1.");
           return false;
@@ -220,7 +221,7 @@ bool term()
 /* Identifies a factor in a term */
 bool factor()
 {
-  if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
+  if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL && isIdentifierDeclared(runner->word))
   {
     runner = runner->next;
     return true;

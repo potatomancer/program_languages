@@ -2,6 +2,7 @@
   "files.associations": {
     "declaredidentifierslist.h": "c",
     "linkedlist.h": "c",
-    "parser.h": "c"
+    "parser.h": "c",
+    "tokenlist.h": "c"
   }
 }
