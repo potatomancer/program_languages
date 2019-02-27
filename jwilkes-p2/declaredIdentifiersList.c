@@ -61,6 +61,7 @@ void printDIList()
     if (printer->next == NULL)
     {
       printf("%s\n", printer->word);
+      printer = printer->next;
     }
     else
     {
@@ -78,6 +79,7 @@ void printDIListBackwards()
     if (printer->last == NULL)
     {
       printf("%s\n", printer->word);
+      printer = printer->next;
     }
     else
     {
