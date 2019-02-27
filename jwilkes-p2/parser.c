@@ -51,19 +51,14 @@ bool isValidProgram()
       skipComments();
       if (strcmp(runner->word, INTEGER) == 0)
       {
+        printf("dec stat\n");
         declarationStatement();
       }
-      if (strcmp(runner->whatAmI, COMMENT) == 0)
+      skipComments();
+      if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
       {
-        skipComments();
-      }
-      else if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
-      {
+        printf("ass stat\n");
         assignmentStatement();
-      }
-      if (strcmp(runner->word, END) == 0)
-      {
-        break;
       }
     }
     if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, END) != 0)
