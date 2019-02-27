@@ -161,7 +161,7 @@ void assignmentStatement()
 /* Identifies an expression in an assignment statement */
 bool expression()
 {
-  if (term() && (strcmp(runner->word, ";") == 0) && runner->next != NULL)
+  if (term() && runner->next != NULL)
   {
     printf("165: %s\n", runner->word);
     while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
