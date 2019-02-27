@@ -39,7 +39,6 @@ void pushToRegister(char newWord[])
   }
   else
   {
-
     registerNode *newNode = (registerNode *)malloc(sizeof(registerNode));
     registerPointer->next = newNode;
     newNode->last = registerPointer;
@@ -55,8 +54,16 @@ void printRegisterStack()
   registerNode *printer = registerHead;
   while (printer != NULL)
   {
-    printf("%s, ", printer->word);
-    printer = printer->next;
+    if (printer->next == NULL)
+    {
+      printf("%s\n", printer->word);
+      printer = printer->next;
+    }
+    else
+    {
+      printf("%s, ", printer->word);
+      printer = printer->next;
+    }
   }
 }
 
@@ -65,10 +72,17 @@ void printRegisterListBackwards()
   registerNode *printer = registerHead;
   while (printer != NULL)
   {
-    printf("%s, ", printer->word);
-    printer = printer->last;
+    if (printer->last == NULL)
+    {
+      printf("%s\n", printer->word);
+      printer = printer->next;
+    }
+    else
+    {
+      printf("%s, ", printer->word);
+      printer = printer->last;
+    }
   }
-  printf("\n");
 }
 
 /* Returns registerHead of token linked list */

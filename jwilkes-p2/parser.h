@@ -11,5 +11,6 @@ bool term();
 bool factor();
 void skipComments();
 void declarationStatement();
+void beginRegisterCalculations();
 
 #endif

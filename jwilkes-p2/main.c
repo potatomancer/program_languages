@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
     if (isValidProgram())
     {
       printf("Program valid!\n");
-      // DO REGISTER STUFF
       printDIList();
     }
     else
