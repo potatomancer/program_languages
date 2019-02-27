@@ -49,7 +49,6 @@ void pushDI(int line, char newWord[])
     declaredPointer->line = line;
     strcpy(declaredPointer->word, newWord);
     declaredPointer->next = NULL;
-    free(newNode);
   }
 }
 
