@@ -129,11 +129,11 @@ void assignmentStatement()
 {
   if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
-    printf("%s\n", runner->word);
+    printf("132: %s\n", runner->word);
     runner = runner->next->next;
     if (expression())
     {
-      printf("expression was true\n");
+      printf("136: expression was true\n");
       runner = runner->next;
       // runner->word == ";"
     }
@@ -162,10 +162,10 @@ bool expression()
 {
   if (term() && (strcmp(runner->word, ";") == 0) && runner->next != NULL)
   {
-    printf("%s\n", runner->word);
+    printf("165: %s\n", runner->word);
     while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
     {
-      printf("+ or - : %s\n", runner->word);
+      printf("168: %s\n", runner->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
