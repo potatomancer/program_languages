@@ -187,6 +187,7 @@ bool expression()
   }
   else
   {
+    printf("%s\n", runner->word);
     pushError(runner->line, "ERROR: Invalid term 2.");
     return false;
   }
@@ -213,7 +214,7 @@ bool term()
   }
   else
   {
-    pushError(runner->line, "ERROR: Invalid factor.");
+    pushError(runner->line, "ERROR: Invalid factor 2.");
     return false;
   }
 }
