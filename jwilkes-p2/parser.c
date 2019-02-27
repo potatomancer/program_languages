@@ -129,7 +129,7 @@ void assignmentStatement()
 {
   if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
-    printf("=\n");
+    printf("%s\n", runner->word);
     runner = runner->next->next;
     if (expression())
     {
@@ -169,7 +169,7 @@ bool expression()
       if (runner->next != NULL)
       {
         runner = runner->next;
-        if (term())
+        if (!term())
         {
           pushError(runner->line, "ERROR: Invalid term 1.");
           return false;
