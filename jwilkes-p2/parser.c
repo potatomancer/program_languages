@@ -42,6 +42,7 @@ bool isValidProgram()
   else
   {
     runner = runner->next;
+    bool decStatGotCalled = false;
     while (runner->next != NULL)
     {
       if (strcmp(runner->word, END) == 0)
@@ -53,9 +54,10 @@ bool isValidProgram()
       {
         printf("dec stat\n");
         declarationStatement();
+        decStatGotCalled = true;
       }
       skipComments();
-      if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
+      if (strcmp(runner->whatAmI, IDENTIFIER) == 0 && decStatGotCalled)
       {
         printf("ass stat\n");
         assignmentStatement();
