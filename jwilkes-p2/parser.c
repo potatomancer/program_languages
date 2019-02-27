@@ -62,6 +62,10 @@ bool isValidProgram()
         printf("ass stat\n");
         assignmentStatement();
       }
+      else if (!decStatGotCalled)
+      {
+        break;
+      }
     }
     if (runner == NULL || strcmp(runner->whatAmI, RESWORD) != 0 || strcmp(runner->word, END) != 0)
     {
