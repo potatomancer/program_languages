@@ -232,14 +232,12 @@ bool factor()
   if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
   {
     printf("IDentifier %s\n", runner->word);
-    pushDI(runner->line, runner->word);
     runner = runner->next;
     return true;
   }
   else if ((strcmp(runner->whatAmI, VALUE) == 0) && runner->next != NULL)
   {
     printf("value %s\n", runner->word);
-    pushDI(runner->line, runner->word);
     runner = runner->next;
     return true;
   }

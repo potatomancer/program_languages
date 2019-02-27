@@ -58,9 +58,10 @@ void printDIList()
   declaredNode *printer = declaredHead;
   while (printer != NULL)
   {
-    printf("'%s'\n", printer->word);
+    printf("%s, ", printer->word);
     printer = printer->next;
   }
+  printf("\n");
 }
 
 void printDIListBackwards()
