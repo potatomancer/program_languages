@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
   pushDI(0, "5");
   pushDI(0, "6");
   pushDI(0, "7");
+  printDIList();
   printDIListBackwards();
 
   if (argc > 1)
