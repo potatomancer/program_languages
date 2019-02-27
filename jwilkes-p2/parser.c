@@ -139,6 +139,7 @@ void assignmentStatement()
     }
     else
     {
+      printf("142: error");
       pushError(runner->line, "ERROR: Invalid expression.");
     }
   }
