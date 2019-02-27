@@ -42,12 +42,14 @@ void pushDI(int line, char newWord[])
   }
   else
   {
-    declaredPointer->next = (declaredNode *)malloc(sizeof(declaredNode));
-    declaredPointer->last = &declaredPointer;
+    declaredNode *newNode = (declaredNode *)malloc(sizeof(declaredNode));
+    declaredPointer->next = newNode;
+    newNode->last = declaredPointer;
     declaredPointer = declaredPointer->next;
     declaredPointer->line = line;
     strcpy(declaredPointer->word, newWord);
     declaredPointer->next = NULL;
+    free(newNode);
   }
 }
 
