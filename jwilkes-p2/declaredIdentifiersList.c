@@ -56,23 +56,25 @@ void pushDI(int line, char newWord[])
 void printDIList()
 {
   declaredNode *printer = declaredHead;
-  while (printer != NULL)
+  while (printer->next != NULL)
   {
     printf("%s, ", printer->word);
     printer = printer->next;
   }
-  printf("\n");
+  printer = printer->next;
+  printf("%s\n", printer->word);
 }
 
 void printDIListBackwards()
 {
   declaredNode *printer = declaredPointer;
-  while (printer != NULL)
+  while (printer->last != NULL)
   {
     printf("%s, ", printer->word);
     printer = printer->last;
   }
-  printf("\n");
+  printer = printer->last;
+  printf("%s\n", printer->word);
 }
 
 /* Returns head of declared identifiers linked list */
