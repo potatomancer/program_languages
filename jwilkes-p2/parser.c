@@ -271,12 +271,12 @@ bool factor()
 void beginRegisterCalculations()
 {
   runner = getTokenHead();
-  while (strcmp(runner->next, "=") == 0)
+  while (strcmp(runner->word, "=") == 0)
   {
     runner = runner->next;
   }
   // At this point, runner is now the identifier before the "=" in an assignment statement.
-  printf("%s, %s, %s\n", runner->next, runner->next->next, runner->next->next->next);
+  printf("%s, %s, %s\n", runner->word, runner->next->word, runner->next->next->word);
   //fuck you
   // Follow algorithm to create infix expression
   /* 
