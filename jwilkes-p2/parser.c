@@ -129,9 +129,11 @@ void assignmentStatement()
 {
   if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
+    printf("=\n");
     runner = runner->next->next;
     if (expression())
     {
+      printf("expression was true\n");
       runner = runner->next;
       // runner->word == ";"
     }
@@ -160,6 +162,7 @@ bool expression()
 {
   if (term() && (strcmp(runner->word, ";")) && runner->next != NULL)
   {
+
     while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
     {
       if (runner->next != NULL)
@@ -195,6 +198,7 @@ bool term()
   {
     while ((strcmp(runner->word, "*") == 0) || (strcmp(runner->word, "/") == 0))
     {
+      printf("%s\n", runner->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
@@ -218,21 +222,25 @@ bool factor()
 {
   if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
   {
+    printf("IDentifier %s\n", runner->word);
     runner = runner->next;
     return true;
   }
   else if ((strcmp(runner->whatAmI, VALUE) == 0) && runner->next != NULL)
   {
+    printf("value %s\n", runner->word);
     runner = runner->next;
     return true;
   }
   else if ((strcmp(runner->word, "(") == 0) && runner->next != NULL)
   {
+    printf("(\n");
     runner = runner->next;
     if (runner->next != NULL)
     {
       if (expression() && (strcmp(runner->word, ")") == 0))
       {
+        printf(")\n");
         runner = runner->next;
         return true;
       }
