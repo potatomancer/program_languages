@@ -165,7 +165,7 @@ bool expression()
     printf("%s\n", runner->word);
     while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
     {
-      printf("%s\n", runner->word);
+      printf("+ or - : %s\n", runner->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
