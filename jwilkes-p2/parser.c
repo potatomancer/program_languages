@@ -271,7 +271,7 @@ bool factor()
 void beginRegisterCalculations()
 {
   runner = getTokenHead();
-  while (strcmp(runner->word, "=") == 0)
+  while (strcmp(runner->word, "=") != 0)
   {
     runner = runner->next;
   }
