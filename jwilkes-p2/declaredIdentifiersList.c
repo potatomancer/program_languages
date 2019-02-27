@@ -43,7 +43,7 @@ void pushDI(int line, char newWord[])
   else
   {
     declaredPointer->next = (declaredNode *)malloc(sizeof(declaredNode));
-    declaredPointer->last = declaredPointer;
+    declaredPointer->last = &declaredPointer;
     declaredPointer = declaredPointer->next;
     declaredPointer->line = line;
     strcpy(declaredPointer->word, newWord);
@@ -67,9 +67,10 @@ void printDIListBackwards()
   declaredNode *printer = declaredPointer;
   while (printer != NULL)
   {
-    printf("'%s'\n", printer->word);
+    printf("%s, ", printer->word);
     printer = printer->last;
   }
+  printf("\n");
 }
 
 /* Returns head of declared identifiers linked list */
