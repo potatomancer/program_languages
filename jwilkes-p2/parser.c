@@ -221,7 +221,7 @@ bool term()
 /* Identifies a factor in a term */
 bool factor()
 {
-  if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL && isIdentifierDeclared(runner->word))
+  if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
   {
     runner = runner->next;
     return true;
