@@ -100,6 +100,7 @@ registerNode *getRegisterHead()
 
 void writeOutRegister(registerNode *start)
 {
+  printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0");
   R0->used = false;
@@ -164,7 +165,7 @@ void writeOutRegister(registerNode *start)
     originalStart = originalStart->next;
   }
   originalStart = originalStart->next;
-  printf("]****");
+  printf("]****\n");
   if (originalStart != NULL)
   {
     writeOutRegister(originalStart);
