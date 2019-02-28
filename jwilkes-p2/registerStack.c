@@ -104,16 +104,8 @@ void writeOutRegister(registerNode *start, char *filename)
 {
   if (fp == NULL)
   {
-    char *fncopy = (char *)malloc(30);
-    strcpy(fncopy, filename);
-    int fnlength = strlen(filename);
-    fncopy[fnlength - 3] = 'o';
-    fncopy[fnlength - 2] = 'u';
-    fncopy[fnlength - 1] = 't';
-    printf("THIS FILE: %s\n", fncopy);
-    fp = fopen(fncopy, "w+");
+    fp = fopen(filename, "w+");
   }
-  printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0\0");
   R0->used = false;
@@ -145,7 +137,6 @@ void writeOutRegister(registerNode *start, char *filename)
           {
             if (regArray[i2]->used)
             {
-              printf("%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
               fprintf(fp, "%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
               regArray[i1]->used = false;
               break;
@@ -163,7 +154,6 @@ void writeOutRegister(registerNode *start, char *filename)
         if (!regArray[i]->used)
         {
           regArray[i]->used = true;
-          printf("%s = %s\n", regArray[i]->R, start->word);
           fprintf(fp, "%s = %s\n", regArray[i]->R, start->word);
           break;
         }
@@ -171,7 +161,6 @@ void writeOutRegister(registerNode *start, char *filename)
     }
     start = start->next;
   }
-  printf("%s = R0\n****[", idAssign);
   fprintf(fp, "%s = R0\n****[", idAssign);
   originalStart = originalStart->next->next;
   while (strcmp(originalStart->word, ";") != 0)
@@ -179,17 +168,14 @@ void writeOutRegister(registerNode *start, char *filename)
     if (originalStart->next != NULL && strcmp(originalStart->next->word, ";") == 0)
     {
       fprintf(fp, "%s", originalStart->word);
-      printf("%s", originalStart->word);
     }
     else
     {
       fprintf(fp, "%s,", originalStart->word);
-      printf("%s,", originalStart->word);
     }
     originalStart = originalStart->next;
   }
   fprintf(fp, "]****\n");
-  printf("]****\n");
   if (originalStart->next != NULL && strcmp(originalStart->next->word, "end") != 0)
   {
     originalStart = originalStart->next;

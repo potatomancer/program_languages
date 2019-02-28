@@ -23,9 +23,14 @@ int main(int argc, char *argv[])
     beginAnalysis(file);
     if (isValidProgram())
     {
-      printf("Program valid!\n");
-      printRegisterStack();
-      writeOutRegister(getRegisterHead(), argv[1]);
+      char *fncopy = (char *)malloc(30);
+      strcpy(fncopy, argv[1]);
+      int fnlength = strlen(argv[1]);
+      fncopy[fnlength - 3] = 'o';
+      fncopy[fnlength - 2] = 'u';
+      fncopy[fnlength - 1] = 't';
+      printf("Program valid! - Output is in file %s\n", fncopy);
+      writeOutRegister(getRegisterHead(), fncopy);
     }
     else
     {
