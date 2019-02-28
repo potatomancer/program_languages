@@ -345,8 +345,8 @@ void evaluateTokenForPostfix()
       printf("runner: %s, buffer: %s: strcmp(runner->word, ) ) == 0\n", runner->word, bufferLast->word);
       while (strcmp(bufferLast->word, "(") != 0)
       {
-        pushToRegister(popFromBuffer());
         printf(")-while: %s\n", bufferLast->word);
+        pushToRegister(popFromBuffer());
         bufferLast = getBufferLast();
       }
       bufferRemoveFromMiddle(bufferLast);
