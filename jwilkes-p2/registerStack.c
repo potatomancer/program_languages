@@ -108,7 +108,7 @@ void writeOutRegister(registerNode *start, char *filename)
   fncopy[fnlength - 1] = 't';
   printf("THIS FILE: %s\n", fncopy);
   FILE *fp;
-  fp = fopen(fncopy, "w+");
+  fp = fopen(fncopy, "a");
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0\0");
@@ -121,8 +121,8 @@ void writeOutRegister(registerNode *start, char *filename)
   R2->used = false;
   registers *R3 = (registers *)malloc(sizeof(registers));
   strcpy(R3->R, "R3\0");
-  registers *regArray[4] = {R0, R1, R2, R3};
   R3->used = false;
+  registers *regArray[4] = {R0, R1, R2, R3};
   registerNode *originalStart = start;
   char *idAssign = (char *)malloc(30);
   strcpy(idAssign, start->word);
@@ -142,14 +142,7 @@ void writeOutRegister(registerNode *start, char *filename)
             if (regArray[i2]->used)
             {
               printf("%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
-              fputs(regArray[i2]->R, fp);
-              fputs(" = ", fp);
-              fputs(regArray[i2]->R, fp);
-              fputs(" ", fp);
-              fputs(start->word, fp);
-              fputs(" ", fp);
-              fputs(regArray[i1]->R, fp);
-              fputs("\n", fp);
+              fprintf(fp, "%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
               regArray[i1]->used = false;
               break;
             }
@@ -168,21 +161,14 @@ void writeOutRegister(registerNode *start, char *filename)
           regArray[i]->used = true;
           printf("%s = %s\n", regArray[i]->R, start->word);
           fprintf(fp, "%s = %s\n", regArray[i]->R, start->word);
-          //fputs(regArray[i]->R, fp);
-          //fputs(" = ", fp);
-          //fputs(start->word, fp);
-          //fputs("\n", fp);
           break;
         }
       }
     }
     start = start->next;
   }
-  printf("%s = R0\n", idAssign);
-  fputs(idAssign, fp);
-  fputs(" = R0", fp);
-  fputs("\n****[", fp);
-  printf("****[");
+  printf("%s = R0\n****[", idAssign);
+  fprintf(fp, "%s = R0\n****[", idAssign);
   originalStart = originalStart->next->next;
   while (strcmp(originalStart->word, ";") != 0)
   {
@@ -192,7 +178,7 @@ void writeOutRegister(registerNode *start, char *filename)
     originalStart = originalStart->next;
   }
   originalStart = originalStart->next;
-  fputs("]****\n", fp);
+  fprintf(fp, "]****\n", fp);
   printf("]****\n");
   if (originalStart != NULL)
   {
