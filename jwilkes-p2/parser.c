@@ -378,6 +378,6 @@ int indexOf(char operator[])
       return returnIndex;
     }
   }
-
+  printf("operator: %c index: %i\n", operator, returnIndex);
   return returnIndex;
 }
