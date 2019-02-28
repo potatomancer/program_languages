@@ -102,6 +102,7 @@ void bufferRemoveFromMiddle(char *word)
   {
     bufferPointer = pointer->last;
   }
+  printf("bufferpointer: %s\n", bufferPointer->word);
 }
 
 /* Method to print all nodes and node data in token linked list */
