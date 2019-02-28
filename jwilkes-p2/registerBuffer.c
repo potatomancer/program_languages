@@ -76,13 +76,19 @@ void bufferRemoveFromMiddle(char *word)
       printf("I'm one step closer to the edge: %s\n", pointer->word);
       break;
     }
-    pointer = pointer->next;
+    pointer = pointer->last;
   }
   printf("And I'm about to break.  I already broke: %s\n", pointer->word);
   if (pointer != NULL)
   {
-    pointer->next->last = pointer->last;
-    pointer->last->next = pointer->next;
+    if (pointer->next != NULL)
+    {
+      pointer->next->last = pointer->last;
+    }
+    if (pointer->last != NULL)
+    {
+      pointer->last->next = pointer->next;
+    }
   }
 }
 
