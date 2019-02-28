@@ -11,5 +11,6 @@ void printRegisterStack();
 registerNode *getRegisterHead();
 
 void printRegisterListBackwards();
+void writeOutRegister(registerNode *start);
 
 #endif
