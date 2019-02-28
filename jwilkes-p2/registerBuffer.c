@@ -52,8 +52,11 @@ char *popFromBuffer()
 {
   char *returnWord = bufferPointer->word;
   bufferPointer = bufferPointer->last;
-  free(bufferPointer->next);
-  bufferPointer->next = NULL;
+  if (bufferPointer != NULL)
+  {
+    free(bufferPointer->next);
+    bufferPointer->next = NULL;
+  }
   return returnWord;
 }
 
