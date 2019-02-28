@@ -66,7 +66,7 @@ char *popFromBuffer()
     printf("Changed bufferPointer to its 'last', changing it's 'next' to null\n");
     bufferPointer->next = NULL;
   }
-  printf("popFromBuffer: %s\n", bufferPointer->word);
+  printf("bufferPointer now points to: %s\n", bufferPointer->word);
   printf("returned word for pushing: %s\n", returnWord);
   return returnWord;
 }

@@ -20,7 +20,7 @@ registerNode *registerHead = NULL;
 registerNode *registerPointer = NULL;
 
 /* Method to initially create the token linked list */
-registerNode *createRegisterStack(char newWord[])
+registerNode *createRegisterStack(char newWord[30])
 {
   registerHead = (registerNode *)malloc(sizeof(registerNode));
   strcpy(registerHead->word, newWord);
@@ -31,7 +31,7 @@ registerNode *createRegisterStack(char newWord[])
 }
 
 /* Method to push new data into token linked list */
-void pushToRegister(char newWord[])
+void pushToRegister(char newWord[30])
 {
   if (registerHead == NULL)
   {
