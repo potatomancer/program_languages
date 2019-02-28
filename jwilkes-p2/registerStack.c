@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 struct registerNode
 {
@@ -18,6 +19,12 @@ struct registerNode
 
 registerNode *registerHead = NULL;
 registerNode *registerPointer = NULL;
+
+typedef struct registers
+{
+  char R[2];
+  bool used;
+} registers;
 
 /* Method to initially create the token linked list */
 registerNode *createRegisterStack(char newWord[])
@@ -89,4 +96,81 @@ void printRegisterListBackwards()
 registerNode *getRegisterHead()
 {
   return registerHead;
+}
+
+void writeOutRegister(registerNode *start)
+{
+  registers *R0 = (registers *)malloc(sizeof(registers));
+  strcpy(R0->R, "R0");
+  R0->used = false;
+  registers *R1 = (registers *)malloc(sizeof(registers));
+  strcpy(R1->R, "R1");
+  R1->used = false;
+  registers *R2 = (registers *)malloc(sizeof(registers));
+  strcpy(R2->R, "R2");
+  R2->used = false;
+  registers *R3 = (registers *)malloc(sizeof(registers));
+  strcpy(R3->R, "R3");
+  registers *regArray[4] = {R0, R1, R2, R3};
+  R3->used = false;
+  registerNode *originalStart = start;
+  char *idAssign = (char *)malloc(30);
+  strcpy(idAssign, start->word);
+  start = start->next->next;
+  while (strcmp(start, ";") == 0)
+  {
+    if (strcmp(start->word, "*") != 0 && strcmp(start->word, "/") != 0 && strcmp(start->word, "+") != 0 && strcmp(start->word, "-") != 0)
+    {
+      // It's an operator
+      int i1 = 3;
+      int i2;
+      for (i1 = 3; i1 >= 0; i1--)
+      {
+        if (regArray[i1]->used)
+        {
+          for (i2 = i1 - 1; i2 >= 0; i2--)
+          {
+            if (regArray[i2]->used)
+            {
+              printf("%s %s %s\n", regArray[i2], start->word, regArray[i1]);
+              regArray[i1]->used = false;
+              regArray[i2]->used = false;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
+    else
+    {
+      int i = 0;
+      for (i = 0; i < 4; i++)
+      {
+        if (!regArray[i]->used)
+        {
+          regArray[i]->used = true;
+          printf("%s = %s\n", regArray[i]->R, start->word);
+        }
+      }
+    }
+    start = start->next;
+  }
+  printf("****[");
+  originalStart = originalStart->next->next;
+  while (strcmp(originalStart, ";") != 0)
+  {
+    printf("%s,", originalStart->word);
+    originalStart = originalStart->next;
+  }
+  originalStart = originalStart->next;
+  printf("]****");
+  if (originalStart != NULL)
+  {
+    writeOutRegister(originalStart);
+  }
+  free(R0);
+  free(R1);
+  free(R2);
+  free(R3);
 }
