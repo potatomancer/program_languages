@@ -96,7 +96,6 @@ bool isValidProgram()
   {
     getFirstAssignmentStatement();
     registerCalculation();
-    printRegisterStack();
     return true;
   }
 }
@@ -310,7 +309,6 @@ void registerCalculation()
   if (runner != NULL)
   {
     pushToRegister(runner->word);
-    printRegisterStack();
     runner = runner->next;
     if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
     {
@@ -343,7 +341,6 @@ void evaluateTokenForPostfix()
         pushToRegister(popFromBuffer());
         bufferLast = getBufferLast();
       }
-      printRegisterStack();
       bufferRemoveFromMiddle(bufferLast->word);
     }
     else if (indexOf(runner->word) < indexOf(bufferLast->word))
