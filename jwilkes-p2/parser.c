@@ -306,7 +306,7 @@ void registerCalculation()
   pushToRegister(runner->word);
   runner = runner->next;
 
-  while (strcmp(runner->word, ";") != 0 || runner != NULL)
+  while (strcmp(runner->word, ";") != 0 && runner != NULL)
   {
     evaluateTokenForPostfix();
   }
