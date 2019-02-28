@@ -107,13 +107,5 @@ bool isIdentifierDeclared(char identifier[])
     }
     mover = mover->next;
   }
-  if (flag)
-  {
-    printf("true\n");
-  }
-  else
-  {
-    printf("false\n");
-  }
   return flag;
 }

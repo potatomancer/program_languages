@@ -33,7 +33,6 @@ errorNode *createErrorList(int line, char message[])
 /* Method to push new data into error linked list */
 void pushError(int line, char message[])
 {
-    printf("%s\n", message);
     if (errorHead == NULL)
     {
         createErrorList(line, message);

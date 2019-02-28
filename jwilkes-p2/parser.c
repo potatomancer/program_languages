@@ -70,14 +70,12 @@ bool isValidProgram()
       skipComments();
       if (strcmp(runner->word, INTEGER) == 0)
       {
-        printf("dec stat\n");
         declarationStatement();
         decStatGotCalled = true;
       }
       skipComments();
       if (strcmp(runner->whatAmI, IDENTIFIER) == 0 && decStatGotCalled)
       {
-        printf("ass stat\n");
         assignmentStatement();
       }
       else if (!decStatGotCalled)
@@ -156,17 +154,14 @@ void assignmentStatement()
 {
   if (runner->next != NULL && (strcmp(runner->next->word, "=") == 0))
   {
-    printf("132: %s\n", runner->word);
     runner = runner->next->next;
     if (expression())
     {
-      printf("136: expression was true\n");
       runner = runner->next;
       // runner->word == ";"
     }
     else
     {
-      printf("142: error");
       pushError(runner->line, "ERROR: Invalid expression.");
     }
   }
@@ -190,10 +185,8 @@ bool expression()
 {
   if (term() && runner->next != NULL)
   {
-    printf("165: %s\n", runner->word);
     while ((strcmp(runner->word, "+") == 0) || (strcmp(runner->word, "-") == 0))
     {
-      printf("168: %s\n", runner->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
@@ -215,7 +208,6 @@ bool expression()
   }
   else
   {
-    printf("%s\n", runner->word);
     pushError(runner->line, "ERROR: Invalid term 2.");
     return false;
   }
@@ -228,7 +220,6 @@ bool term()
   {
     while ((strcmp(runner->word, "*") == 0) || (strcmp(runner->word, "/") == 0))
     {
-      printf("%s\n", runner->word);
       if (runner->next != NULL)
       {
         runner = runner->next;
@@ -254,7 +245,6 @@ bool factor()
   {
     if (isIdentifierDeclared(runner->word))
     {
-      printf("IDentifier %s\n", runner->word);
       runner = runner->next;
       return true;
     }
@@ -267,19 +257,16 @@ bool factor()
   }
   else if ((strcmp(runner->whatAmI, VALUE) == 0) && runner->next != NULL)
   {
-    printf("value %s\n", runner->word);
     runner = runner->next;
     return true;
   }
   else if ((strcmp(runner->word, "(") == 0) && runner->next != NULL)
   {
-    printf("(\n");
     runner = runner->next;
     if (runner->next != NULL)
     {
       if (expression() && (strcmp(runner->word, ")") == 0))
       {
-        printf(")\n");
         runner = runner->next;
         return true;
       }
@@ -323,7 +310,6 @@ void registerCalculation()
   if (runner != NULL)
   {
     pushToRegister(runner->word);
-    printf("PRINTING LIST\n");
     printRegisterStack();
     runner = runner->next;
     if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
@@ -335,7 +321,6 @@ void registerCalculation()
 
 void evaluateTokenForPostfix()
 {
-  printf("Evaluating: %s, What Am I: %s\n", runner->word, runner->whatAmI);
   if (strcmp(runner->whatAmI, IDENTIFIER) == 0 || strcmp(runner->whatAmI, VALUE) == 0)
   {
     pushToRegister(runner->word);
@@ -343,43 +328,34 @@ void evaluateTokenForPostfix()
   else if (strcmp(runner->whatAmI, OPERATOR) == 0)
   {
     bufferNode *bufferLast = getBufferLast();
-    printf("bufferLast: %s\n", bufferLast->word);
     if (bufferLast == NULL)
     {
-      printf("%s: bufferLast == NULL\n", runner->word);
       pushToBuffer(runner->word);
     }
     else if (strcmp(runner->word, "(") == 0)
     {
-      printf("%s: strcmp(runner->word, ( ) == 0\n", runner->word);
       pushToBuffer(runner->word);
     }
     else if (strcmp(runner->word, ")") == 0)
     {
-      printf("runner: %s, buffer: %s: strcmp(runner->word, ) ) == 0\n", runner->word, bufferLast->word);
       while (strcmp(bufferLast->word, "(") != 0)
       {
-        printf(")-while: %s\n", bufferLast->word);
         pushToRegister(popFromBuffer());
         bufferLast = getBufferLast();
       }
-      printf("BEFORE bufferRemoveFromMiddle");
       printRegisterStack();
       bufferRemoveFromMiddle(bufferLast->word);
     }
     else if (indexOf(runner->word) < indexOf(bufferLast->word))
     {
-      printf("%s: indexOf(runner->word) < indexOf(bufferLast->word)\n", runner->word);
       pushToBuffer(runner->word);
     }
     else
     {
-      printf("%s: else\n", runner->word);
       while (bufferLast != NULL && strcmp(bufferLast->word, "(") != 0)
       {
         if (indexOf(bufferLast->word) < indexOf(runner->word))
         {
-          printf("push to register: %s\n", bufferLast->word);
           pushToRegister(popFromBuffer());
         }
         else
@@ -388,7 +364,6 @@ void evaluateTokenForPostfix()
         }
         bufferLast = getBufferLast();
       }
-      printf("else pushToBuffer: %s\n", runner->word);
       pushToBuffer(runner->word);
     }
   }
@@ -407,12 +382,9 @@ void evaluateTokenForPostfix()
     8. Pop and output from the stack until it is not empty. */
   if (runner->next != NULL && strcmp(runner->next->word, ";") == 0 && getBufferLast() != NULL)
   {
-    printf("runner->next->word: %s, bufferLast->word: %s\n", runner->next->word, getBufferLast()->word);
     pushToRegister(popFromBuffer());
   }
   runner = runner->next;
-  printf("THE REGISTER: ");
-  printRegisterStack();
 }
 
 int indexOf(char operator[])
@@ -425,6 +397,5 @@ int indexOf(char operator[])
       return returnIndex;
     }
   }
-  printf("operator: %s, index: %i\n", operator, returnIndex);
   return returnIndex;
 }

@@ -50,43 +50,32 @@ void pushToBuffer(char newWord[])
 
 char *popFromBuffer()
 {
-  printf("popFromBuffer time: bufferPointer->word: %s\n", bufferPointer->word);
   char *returnWord = (char *)malloc(30);
   strcpy(returnWord, bufferPointer->word);
-  printf("string copied\n");
   if (bufferPointer->last == NULL)
   {
-    printf("bufferpointer->last was null here\n");
     bufferPointer = NULL;
   }
   else
   {
-    printf("bufferpointer->last was NOT null\n");
     bufferPointer = bufferPointer->last;
     free(bufferPointer->next);
-    printf("Changed bufferPointer to its 'last', changing it's 'next' to null\n");
     bufferPointer->next = NULL;
   }
-  printf("bufferPointer now points to: %s\n", bufferPointer->word);
-  printf("returned word for pushing: %s\n", returnWord);
   return returnWord;
 }
 
 void bufferRemoveFromMiddle(char *word)
 {
-  printf("bufferRemoveFromMiddle\n");
-  printBufferStack();
   bufferNode *pointer = bufferPointer;
   while (pointer != NULL)
   {
     if (pointer->word == word)
     {
-      printf("I'm one step closer to the edge: %s\n", pointer->word);
       break;
     }
     pointer = pointer->last;
   }
-  printf("And I'm about to break.  I already broke: %s\n", pointer->word);
   if (pointer != NULL)
   {
     if (pointer->next != NULL)
@@ -110,7 +99,6 @@ void bufferRemoveFromMiddle(char *word)
   {
     bufferPointer = pointer->last;
   }
-  printf("bufferpointer: %s\n", bufferPointer->word);
 }
 
 /* Method to print all nodes and node data in token linked list */
