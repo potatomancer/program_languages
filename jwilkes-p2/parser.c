@@ -329,7 +329,12 @@ void evaluateTokenForPostfix()
   else if (strcmp(runner->whatAmI, OPERATOR) == 0)
   {
     bufferNode *bufferLast = getBufferLast();
-    if (strcmp(runner->word, "(") == 0)
+    if (bufferLast == NULL)
+    {
+      printf("%s: bufferLast == NULL\n", runner->word);
+      pushToBuffer(runner->word);
+    }
+    else if (strcmp(runner->word, "(") == 0)
     {
       printf("%s: strcmp(runner->word, ( ) == 0\n", runner->word);
       pushToBuffer(runner->word);
@@ -344,11 +349,6 @@ void evaluateTokenForPostfix()
         bufferLast = bufferLast->last;
       }
       bufferRemoveFromMiddle(bufferLast);
-    }
-    else if (bufferLast == NULL)
-    {
-      printf("%s: bufferLast == NULL\n", runner->word);
-      pushToBuffer(runner->word);
     }
     else if (indexOf(runner->word) > indexOf(bufferLast->word))
     {
