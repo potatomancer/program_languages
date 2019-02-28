@@ -4,5 +4,8 @@
     "linkedlist.h": "c",
     "parser.h": "c",
     "tokenlist.h": "c"
-  }
+  },
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "python.pythonPath": "C:\\Users\\Joshu\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
 }
