@@ -186,7 +186,7 @@ void writeOutRegister(registerNode *start, char *filename)
   }
   fprintf(fp, "]****\n");
   printf("]****\n");
-  if (originalStart->next != NULL)
+  if (originalStart->next != NULL && strcmp(originalStart->next->word, "end") != 0)
   {
     originalStart = originalStart->next;
     writeOutRegister(originalStart, filename);
