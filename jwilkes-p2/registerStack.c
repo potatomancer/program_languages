@@ -167,10 +167,11 @@ void writeOutRegister(registerNode *start, char *filename)
         {
           regArray[i]->used = true;
           printf("%s = %s\n", regArray[i]->R, start->word);
-          fputs(regArray[i]->R, fp);
-          fputs(" = ", fp);
-          fputs(start->word, fp);
-          fputs("\n", fp);
+          fprintf(fp, "%s = %s\n", regArray[i]->R, start->word);
+          //fputs(regArray[i]->R, fp);
+          //fputs(" = ", fp);
+          //fputs(start->word, fp);
+          //fputs("\n", fp);
           break;
         }
       }
