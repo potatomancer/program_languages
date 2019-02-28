@@ -53,6 +53,7 @@ char *popFromBuffer()
   printf("popFromBuffer time: bufferPointer->word: %s\n", bufferPointer->word);
   char *returnWord;
   strcpy(returnWord, bufferPointer->word);
+  printf("string copied\n");
   if (bufferPointer->last == NULL)
   {
     printf("bufferpointer->last was null here\n");
