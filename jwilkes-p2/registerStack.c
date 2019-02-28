@@ -132,7 +132,7 @@ void writeOutRegister(registerNode *start)
           {
             if (regArray[i2]->used)
             {
-              printf("%s %s %s\n", regArray[i2]->R, start->word, regArray[i1]->R);
+              printf("%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
               regArray[i1]->used = false;
               regArray[i2]->used = false;
               break;
