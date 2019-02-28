@@ -42,18 +42,19 @@ void pushToRegister(char newWord[])
   else
   {
     printf("else 1");
-    registerNode *newNode = (registerNode *)malloc(sizeof(registerNode));
+    // registerNode *newNode = (registerNode *)malloc(sizeof(registerNode));
     printf(" 2");
-    registerPointer->next = newNode;
+    registerPointer->next = (registerNode *)malloc(sizeof(registerNode));
     printf(" 3");
-    newNode->last = registerPointer;
+    // newNode->last = registerPointer;
+    strcpy(registerPointer->next->word, newWord);
+    registerPointer->next->last = registerPointer;
     printf(" 4");
     registerPointer = registerPointer->next;
     printf(" 5");
-    strcpy(registerPointer->word, newWord);
+    // strcpy(registerPointer->word, newWord);
     printf(" 6");
     registerPointer->next = NULL;
-    free(newNode);
   }
   printf("did this FINISH?!\n");
 }
