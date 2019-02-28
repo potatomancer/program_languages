@@ -402,6 +402,8 @@ void evaluateTokenForPostfix()
     pushToRegister(popFromBuffer());
   }
   runner = runner->next;
+  printf("THE REGISTER: ");
+  printRegisterStack();
 }
 
 int indexOf(char operator[])
