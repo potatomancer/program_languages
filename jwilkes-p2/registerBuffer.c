@@ -51,7 +51,7 @@ void pushToBuffer(char newWord[])
 char *popFromBuffer()
 {
   printf("popFromBuffer time: bufferPointer->word: %s\n", bufferPointer->word);
-  /*   char *returnWord;
+  char *returnWord = (char *)malloc(30);
   strcpy(returnWord, bufferPointer->word);
   printf("string copied\n");
   if (bufferPointer->last == NULL)
@@ -69,9 +69,7 @@ char *popFromBuffer()
   }
   printf("bufferPointer now points to: %s\n", bufferPointer->word);
   printf("returned word for pushing: %s\n", returnWord);
-  return returnWord; */
-
-  return bufferPointer->word;
+  return returnWord;
 }
 
 void bufferRemoveFromMiddle(char *word)
