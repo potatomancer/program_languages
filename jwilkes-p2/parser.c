@@ -347,7 +347,7 @@ void evaluateTokenForPostfix()
       {
         pushToRegister(popFromBuffer());
         printf(")-while: %s\n", bufferLast->word);
-        bufferLast = bufferLast->last;
+        bufferLast = getBufferLast();
       }
       bufferRemoveFromMiddle(bufferLast);
     }
