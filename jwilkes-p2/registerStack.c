@@ -54,6 +54,7 @@ void pushToRegister(char newWord[30])
     printf(" 6");
     registerPointer->next = NULL;
   }
+  printf("did this FINISH?!\n");
 }
 
 /* Method to print all nodes and node data in token linked list */
