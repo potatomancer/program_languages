@@ -117,7 +117,7 @@ void writeOutRegister(registerNode *start)
   char *idAssign = (char *)malloc(30);
   strcpy(idAssign, start->word);
   start = start->next->next;
-  while (strcmp(start, ";") == 0)
+  while (strcmp(start->word, ";") == 0)
   {
     if (strcmp(start->word, "*") != 0 && strcmp(start->word, "/") != 0 && strcmp(start->word, "+") != 0 && strcmp(start->word, "-") != 0)
     {
