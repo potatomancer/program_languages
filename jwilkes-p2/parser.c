@@ -366,8 +366,9 @@ void evaluateTokenForPostfix()
       printf("%s: else\n", runner->word);
       while (bufferLast != NULL || strcmp(bufferLast->word, "(") != 0)
       {
-        if (indexOf(bufferLast->word) > indexOf(runner->word))
+        if (indexOf(bufferLast->word) < indexOf(runner->word))
         {
+          printf("push to register: %s\n", bufferLast->word);
           pushToRegister(popFromBuffer());
         }
         else
