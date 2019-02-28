@@ -59,6 +59,7 @@ char *popFromBuffer()
 
 void bufferRemoveFromMiddle(bufferNode *node)
 {
+  printf("bufferRemoveFromMiddle\n");
   bufferNode *head = bufferHead;
   while (head != NULL)
   {
