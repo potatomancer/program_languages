@@ -33,7 +33,7 @@ bufferNode *createBufferStack(char newWord[])
 /* Method to push new data into token linked list */
 void pushToBuffer(char newWord[])
 {
-  if (bufferHead == NULL)
+  if (bufferPointer == NULL)
   {
     createBufferStack(newWord);
   }
