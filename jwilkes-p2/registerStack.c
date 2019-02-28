@@ -118,13 +118,10 @@ void writeOutRegister(registerNode *start)
   char *idAssign = (char *)malloc(30);
   strcpy(idAssign, start->word);
   start = start->next->next;
-  printf("before loop: %s\n", start->word);
   while (strcmp(start->word, ";") != 0)
   {
-    printf("start while loop: %s\n", start->word);
     if (strcmp(start->word, "*") == 0 || strcmp(start->word, "/") == 0 || strcmp(start->word, "+") == 0 || strcmp(start->word, "-") == 0)
     {
-      printf("operator\n");
       int i1 = 3;
       int i2;
       for (i1 = 3; i1 >= 0; i1--)
@@ -147,7 +144,6 @@ void writeOutRegister(registerNode *start)
     }
     else
     {
-      printf("identifier/value\n");
       int i = 0;
       for (i = 0; i < 4; i++)
       {
