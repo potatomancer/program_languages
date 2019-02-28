@@ -252,9 +252,17 @@ bool factor()
 {
   if ((strcmp(runner->whatAmI, IDENTIFIER) == 0) && runner->next != NULL)
   {
-    printf("IDentifier %s\n", runner->word);
-    runner = runner->next;
-    return true;
+    if (isIdentifierDeclared(runner->word))
+    {
+      printf("IDentifier %s\n", runner->word);
+      runner = runner->next;
+      return true;
+    }
+    else
+    {
+      pushError(runner->line, "ERROR: undeclared variable %s.", runner->word);
+      return false;
+    }
   }
   else if ((strcmp(runner->whatAmI, VALUE) == 0) && runner->next != NULL)
   {
