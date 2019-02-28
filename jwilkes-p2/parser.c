@@ -379,6 +379,7 @@ void evaluateTokenForPostfix()
         }
         bufferLast = getBufferLast();
       }
+      printf("else pushToBuffer: %s\n", runner->word);
       pushToBuffer(runner->word);
     }
   }
