@@ -57,6 +57,8 @@ char *popFromBuffer()
     free(bufferPointer->next);
     bufferPointer->next = NULL;
   }
+
+  printf("popFromBuffer: %s\n", bufferPointer->word);
   return returnWord;
 }
 
