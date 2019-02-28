@@ -314,6 +314,8 @@ void registerCalculation()
   if (runner != NULL)
   {
     pushToRegister(runner->word);
+    printf("PRINTING LIST\n");
+    printRegisterStack();
     runner = runner->next;
     if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
     {
