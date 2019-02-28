@@ -8,3 +8,11 @@ make
 ./run prog3Illegal.txt
 ./run prog4Illegal.txt
 make clean
+echo cat prog1legal.out
+cat prog1legal.out
+echo cat prog2legal.out
+cat prog2legal.out
+echo cat prog3legal.out
+cat prog3legal.out
+echo cat prog4legal.out
+cat prog4legal.out
