@@ -118,7 +118,7 @@ void writeOutRegister(registerNode *start)
   char *idAssign = (char *)malloc(30);
   strcpy(idAssign, start->word);
   start = start->next->next;
-
+  printf("before loop: %s\n", start->word);
   while (strcmp(start->word, ";") == 0)
   {
     printf("start while loop: %s\n", start->word);
