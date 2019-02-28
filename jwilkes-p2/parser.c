@@ -321,6 +321,7 @@ void registerCalculation()
 
 void evaluateTokenForPostfix()
 {
+  printf("Evaluating: %s\n", runner->word);
   if (strcmp(runner->whatAmI, IDENTIFIER) == 0 || strcmp(runner->whatAmI, VALUE) == 0)
   {
     pushToRegister(runner->word);
