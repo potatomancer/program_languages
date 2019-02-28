@@ -356,9 +356,9 @@ void evaluateTokenForPostfix()
       }
       bufferRemoveFromMiddle(bufferLast->word);
     }
-    else if (indexOf(runner->word) > indexOf(bufferLast->word))
+    else if (indexOf(runner->word) < indexOf(bufferLast->word))
     {
-      printf("%s: indexOf(runner->word) > indexOf(bufferLast->word)\n", runner->word);
+      printf("%s: indexOf(runner->word) < indexOf(bufferLast->word)\n", runner->word);
       pushToBuffer(runner->word);
     }
     else
