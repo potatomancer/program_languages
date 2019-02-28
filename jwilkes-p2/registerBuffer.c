@@ -51,13 +51,16 @@ void pushToBuffer(char newWord[])
 char *popFromBuffer()
 {
   char *returnWord = bufferPointer->word;
-  bufferPointer = bufferPointer->last;
-  if (bufferPointer != NULL)
+  if (bufferPointer->last == NULL)
   {
+    bufferPointer = NULL;
+  }
+  else
+  {
+    bufferPointer = bufferPointer->last;
     free(bufferPointer->next);
     bufferPointer->next = NULL;
   }
-
   printf("popFromBuffer: %s\n", bufferPointer->word);
   return returnWord;
 }
