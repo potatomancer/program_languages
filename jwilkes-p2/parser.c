@@ -260,7 +260,8 @@ bool factor()
     }
     else
     {
-      pushError(runner->line, "ERROR: undeclared variable %s.", runner->word);
+      pushError(runner->line, "ERROR: undeclared variable.");
+      runner = runner->next;
       return false;
     }
   }
