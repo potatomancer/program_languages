@@ -68,6 +68,7 @@ char *popFromBuffer()
 void bufferRemoveFromMiddle(char *word)
 {
   printf("bufferRemoveFromMiddle\n");
+  printBufferStack();
   bufferNode *pointer = bufferPointer;
   while (pointer != NULL)
   {
