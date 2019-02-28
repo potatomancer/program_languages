@@ -22,7 +22,7 @@ registerNode *registerPointer = NULL;
 
 typedef struct registers
 {
-  char R[2];
+  char R[3];
   bool used;
 } registers;
 
@@ -102,16 +102,16 @@ void writeOutRegister(registerNode *start)
 {
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
-  strcpy(R0->R, "R0");
+  strcpy(R0->R, "R0\0");
   R0->used = false;
   registers *R1 = (registers *)malloc(sizeof(registers));
-  strcpy(R1->R, "R1");
+  strcpy(R1->R, "R1\0");
   R1->used = false;
   registers *R2 = (registers *)malloc(sizeof(registers));
-  strcpy(R2->R, "R2");
+  strcpy(R2->R, "R2\0");
   R2->used = false;
   registers *R3 = (registers *)malloc(sizeof(registers));
-  strcpy(R3->R, "R3");
+  strcpy(R3->R, "R3\0");
   registers *regArray[4] = {R0, R1, R2, R3};
   R3->used = false;
   registerNode *originalStart = start;
@@ -155,6 +155,7 @@ void writeOutRegister(registerNode *start)
         {
           regArray[i]->used = true;
           printf("%s = %s\n", regArray[i]->R, start->word);
+          break;
         }
       }
     }
