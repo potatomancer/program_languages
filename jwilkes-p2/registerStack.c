@@ -173,12 +173,11 @@ void writeOutRegister(registerNode *start, char *filename)
   while (strcmp(originalStart->word, ";") != 0)
   {
     printf("%s,", originalStart->word);
-    fputs(originalStart->word, fp);
-    fputs(",", fp);
+    fprintf(fp, "%s,", originalStart->word);
     originalStart = originalStart->next;
   }
   originalStart = originalStart->next;
-  fprintf(fp, "]****\n", fp);
+  fprintf(fp, "]****\n");
   printf("]****\n");
   if (originalStart != NULL)
   {
