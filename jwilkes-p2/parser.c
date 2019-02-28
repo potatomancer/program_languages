@@ -1,7 +1,7 @@
 /* This file iterates through the token linked list and checks if the order of tokens/types is valid based on the rules set forth in the project. 
  * Author: Joshua Wilkes
  * Version: 2.0
- * Last Updated: 02/25/2019
+ * Last Updated: 02/28/2019
 */
 
 #include "parser.h"
@@ -9,6 +9,8 @@
 #include "errorList.h"
 #include "declaredIdentifiersList.h"
 #include "registerStack.h"
+#include "lexicalAnalyzer.h"
+#include "registerBuffer.h"
 #include <string.h>
 #include <stdbool.h>
 
@@ -28,6 +30,16 @@ struct lexemeNode
 #define IDENTIFIER "identifier"
 #define VALUE "value"
 #define COMMENT "comment"
+#define terminalOperatorsCount 7
+char terminalOperators[terminalOperatorsCount] = {
+    '(',
+    '/',
+    '*',
+    '+',
+    '-',
+    ')',
+    '=',
+};
 
 lexemeNode *runner = NULL;
 
@@ -78,7 +90,8 @@ bool isValidProgram()
   }
   else
   {
-    beginRegisterCalculations();
+    getFirstAssignmentStatment();
+    registerCalculation();
     return true;
   }
 }
@@ -268,17 +281,72 @@ bool factor()
   }
 }
 
-void beginRegisterCalculations()
+void getFirstAssignmentStatement()
 {
   runner = getTokenHead();
   while (strcmp(runner->next->word, "=") != 0)
   {
     runner = runner->next;
   }
-  // At this point, runner is now the identifier before the "=" in an assignment statement.
-  printf("%s, %s, %s\n", runner->word, runner->next->word, runner->next->next->word);
-  //fuck you
-  // Follow algorithm to create infix expression
+}
+
+void registerCalculation()
+{
+  // Identifier
+  pushToRegister(runner->word);
+  runner = runner->next;
+  // "="
+  pushToRegister(runner->word);
+  runner = runner->next;
+
+  while (strcmp(runner->word, ";") != 0)
+  {
+    evaluateTokenForPostfix();
+  }
+  // ";"
+  pushToRegister(runner->word);
+  runner = runner->next;
+  if (strcmp(runner->whatAmI, IDENTIFIER) == 0)
+  {
+    registerCalculation();
+  }
+}
+
+void evaluateTokenForPostfix()
+{
+  if (strcmp(runner->whatAmI, IDENTIFIER) == 0 || strcmp(runner->whatAmI, VALUE) == 0)
+  {
+    pushToRegister(runner->word);
+  }
+  else if (strcmp(runner->whatAmI, OPERATOR) == 0)
+  {
+    bufferNode *bufferLast = getBufferLast();
+    if (bufferLast == NULL)
+    {
+      pushToBuffer(runner->word);
+    }
+    else if (indexOf(runner->word) > indexOf(bufferLast))
+    {
+      pushToBuffer(runner->word);
+    }
+    else
+    {
+      while (bufferLast != NULL)
+      {
+        if (indexOf(bufferLast) > indexOf(runner->word))
+        {
+          pushToRegister(popFromBuffer());
+        }
+        else
+        {
+          break;
+        }
+        bufferLast = bufferLast->last;
+      }
+    }
+  }
+
+  // Follow algorithm to create postfix expression
   /* 
     1. Scan the infix expression from left to right.
     2. If the scanned character is an operand, output it.
@@ -290,4 +358,19 @@ void beginRegisterCalculations()
     6. Repeat steps 2-6 until infix expression is scanned.
     7. Print the output
     8. Pop and output from the stack until it is not empty. */
+  runner = runner->next;
+}
+
+int indexOf(char operator[])
+{
+  int returnIndex = 0;
+  for (returnIndex = 0; returnIndex < terminalOperatorsCount; returnIndex++)
+  {
+    if (strcmp(terminalOperators[returnIndex], operator) == 0)
+    {
+      return returnIndex;
+    }
+  }
+
+  return returnIndex;
 }

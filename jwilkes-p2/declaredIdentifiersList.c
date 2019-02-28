@@ -1,7 +1,7 @@
 /* This file creates a linked list to store declared identifiers found in the given text file. 
  * Author: Joshua Wilkes
  * Version: 1.0
- * Last Updated: 02/25/2019
+ * Last Updated: 02/28/2019
 */
 
 #include "declaredIdentifiersList.h"

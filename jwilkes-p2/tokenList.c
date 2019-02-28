@@ -1,7 +1,7 @@
 /* This file creates a linked list to store tokens found in the given text file. 
  * Author: Joshua Wilkes
  * Version: 2.0
- * Last Updated: 02/25/2019
+ * Last Updated: 02/28/2019
 */
 
 #include "tokenList.h"

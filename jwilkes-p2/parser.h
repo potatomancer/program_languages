@@ -11,6 +11,8 @@ bool term();
 bool factor();
 void skipComments();
 void declarationStatement();
-void beginRegisterCalculations();
-
+void getFirstAssignmentStatement();
+void registerCalculation();
+int indexOf(char operator[]);
+void evaluateTokenForPostfix();
 #endif

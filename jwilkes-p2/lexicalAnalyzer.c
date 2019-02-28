@@ -1,7 +1,7 @@
 /* This file analyzes a text file one character at a time, identifies tokens, and inserts the identified tokens into the linked list.
  * Author: Joshua Wilkes
  * Version: 2.0
- * Last Updated: 02/25/2019
+ * Last Updated: 02/28/2019
 */
 
 #include "lexicalAnalyzer.h"
@@ -23,7 +23,15 @@ struct Node *LAhead = NULL;
 #define delimiterCount 4
 
 char *reservedWords[reservedWordsCount] = {"begin", "end", "int"};
-char terminalOperators[terminalOperatorsCount] = {'+', '-', '/', '*', '=', '(', ')'};
+char terminalOperators[terminalOperatorsCount] = {
+    '(',
+    ')',
+    '/',
+    '*',
+    '+',
+    '-',
+    '=',
+};
 char delimiter[delimiterCount] = {' ', '\t', ';', ','};
 char *types[tokenTypeCount] = {"reserved word", "operator", "delimiter", "identifier", "value"};
 lexemeNode *parserHead = NULL;

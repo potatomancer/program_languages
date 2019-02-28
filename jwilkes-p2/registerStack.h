@@ -5,8 +5,8 @@
 
 typedef struct registerNode registerNode;
 
-registerNode *createRegisterStack(int line, char word[], char whatAmI[]);
-void pushToRegister(int line, char newWord[], char whatAmI[]);
+registerNode *createRegisterStack(char word[]);
+void pushToRegister(char newWord[]);
 void printRegisterStack();
 registerNode *getRegisterHead();
 
