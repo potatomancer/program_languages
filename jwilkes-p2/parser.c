@@ -21,6 +21,12 @@ struct lexemeNode
   char whatAmI[15];
   lexemeNode *next;
 };
+struct bufferNode
+{
+  char word[30];
+  bufferNode *next;
+  bufferNode *last;
+};
 
 #define RESWORD "reserved word"
 #define INTEGER "int"
