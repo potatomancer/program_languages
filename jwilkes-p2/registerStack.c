@@ -119,7 +119,7 @@ void writeOutRegister(registerNode *start)
   strcpy(idAssign, start->word);
   start = start->next->next;
   printf("before loop: %s\n", start->word);
-  while (strcmp(start->word, ";") == 0)
+  while (strcmp(start->word, ";") != 0)
   {
     printf("start while loop: %s\n", start->word);
     if (strcmp(start->word, "*") != 0 && strcmp(start->word, "/") != 0 && strcmp(start->word, "+") != 0 && strcmp(start->word, "-") != 0)
@@ -160,6 +160,7 @@ void writeOutRegister(registerNode *start)
     }
     start = start->next;
   }
+  printf("%s = R0\n", idAssign);
   printf("****[");
   originalStart = originalStart->next->next;
   while (strcmp(originalStart->word, ";") != 0)
