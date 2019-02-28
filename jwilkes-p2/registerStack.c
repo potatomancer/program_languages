@@ -33,7 +33,7 @@ registerNode *createRegisterStack(char newWord[30])
 /* Method to push new data into token linked list */
 void pushToRegister(char newWord[30])
 {
-  printf("pushToRegister started\n");
+  printf("pushToRegister started, registerPointer: %s\n", registerPointer->word);
   if (registerPointer == NULL)
   {
     printf("registerPointer was null\n");
