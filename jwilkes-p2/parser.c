@@ -98,6 +98,7 @@ bool isValidProgram()
   {
     getFirstAssignmentStatement();
     registerCalculation();
+    printRegisterStack();
     return true;
   }
 }
