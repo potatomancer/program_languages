@@ -36,8 +36,8 @@ struct bufferNode
 #define IDENTIFIER "identifier"
 #define VALUE "value"
 #define COMMENT "comment"
-#define terminalOperatorsCount 7
-char *terminalOperators[terminalOperatorsCount] = {
+#define terminalOperatorsWithPrecedenceCount 7
+char *terminalOperatorsWithPrecedence[terminalOperatorsWithPrecedenceCount] = {
     "(",
     "/",
     "*",
@@ -370,9 +370,9 @@ void evaluateTokenForPostfix()
 int indexOf(char operator[])
 {
   int returnIndex = 0;
-  for (returnIndex = 0; returnIndex < terminalOperatorsCount; returnIndex++)
+  for (returnIndex = 0; returnIndex < terminalOperatorsWithPrecedenceCount; returnIndex++)
   {
-    if (strcmp(terminalOperators[returnIndex], operator) == 0)
+    if (strcmp(terminalOperatorsWithPrecedence[returnIndex], operator) == 0)
     {
       return returnIndex;
     }
