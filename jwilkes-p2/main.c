@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     {
       printf("Program valid!\n");
       printRegisterStack();
-      writeOutRegister(getRegisterHead());
+      writeOutRegister(getRegisterHead(), argv[1]);
     }
     else
     {

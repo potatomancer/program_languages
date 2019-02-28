@@ -98,8 +98,13 @@ registerNode *getRegisterHead()
   return registerHead;
 }
 
-void writeOutRegister(registerNode *start)
+void writeOutRegister(registerNode *start, char *filename)
 {
+  int fnlength = strlen(filename);
+  filename[fnlength - 3] = "o";
+  filename[fnlength - 2] = "u";
+  filename[fnlength - 1] = "t";
+  FILE *fp;
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0\0");
@@ -134,7 +139,6 @@ void writeOutRegister(registerNode *start)
             {
               printf("%s = %s %s %s\n", regArray[i2]->R, regArray[i2]->R, start->word, regArray[i1]->R);
               regArray[i1]->used = false;
-              ///regArray[i2]->used = false;
               break;
             }
           }
@@ -175,4 +179,5 @@ void writeOutRegister(registerNode *start)
   free(R1);
   free(R2);
   free(R3);
+  fclose(fp);
 }
