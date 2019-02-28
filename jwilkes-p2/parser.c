@@ -389,6 +389,7 @@ void evaluateTokenForPostfix()
     8. Pop and output from the stack until it is not empty. */
   if (strcmp(runner->next->word, ";") == 0 && getBufferLast() != NULL)
   {
+    printf("idk what I'm doing\n");
     pushToRegister(popFromBuffer());
   }
   runner = runner->next;
