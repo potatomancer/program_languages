@@ -106,5 +106,6 @@ bool isIdentifierDeclared(char identifier[])
       flag = true;
     }
   }
+  printf(flag);
   return flag;
 }
