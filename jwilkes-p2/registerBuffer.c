@@ -60,7 +60,7 @@ char *popFromBuffer()
   else
   {
     bufferPointer = bufferPointer->last;
-    free(bufferPointer->next);
+    // free(bufferPointer->next);
     bufferPointer->next = NULL;
   }
   printf("popFromBuffer: %s\n", bufferPointer->word);
