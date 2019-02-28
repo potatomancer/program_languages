@@ -34,8 +34,9 @@ registerNode *createRegisterStack(char newWord[30])
 void pushToRegister(char newWord[30])
 {
   printf("pushToRegister started\n");
-  if (registerHead == NULL)
+  if (registerPointer == NULL)
   {
+    printf("registerPointer was null\n");
     createRegisterStack(newWord);
   }
   else
