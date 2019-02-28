@@ -26,6 +26,8 @@ typedef struct registers
   bool used;
 } registers;
 
+FILE *fp = NULL;
+
 /* Method to initially create the token linked list */
 registerNode *createRegisterStack(char newWord[])
 {
@@ -100,15 +102,17 @@ registerNode *getRegisterHead()
 
 void writeOutRegister(registerNode *start, char *filename)
 {
-  char *fncopy = (char *)malloc(30);
-  strcpy(fncopy, filename);
-  int fnlength = strlen(filename);
-  fncopy[fnlength - 3] = 'o';
-  fncopy[fnlength - 2] = 'u';
-  fncopy[fnlength - 1] = 't';
-  printf("THIS FILE: %s\n", fncopy);
-  FILE *fp;
-  fp = fopen(fncopy, "a+");
+  if (fp == NULL)
+  {
+    char *fncopy = (char *)malloc(30);
+    strcpy(fncopy, filename);
+    int fnlength = strlen(filename);
+    fncopy[fnlength - 3] = 'o';
+    fncopy[fnlength - 2] = 'u';
+    fncopy[fnlength - 1] = 't';
+    printf("THIS FILE: %s\n", fncopy);
+    fp = fopen(fncopy, "w+");
+  }
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0\0");
@@ -191,9 +195,12 @@ void writeOutRegister(registerNode *start, char *filename)
     originalStart = originalStart->next;
     writeOutRegister(originalStart, filename);
   }
+  else
+  {
+    fclose(fp);
+  }
   free(R0);
   free(R1);
   free(R2);
   free(R3);
-  fclose(fp);
 }
