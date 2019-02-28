@@ -62,7 +62,7 @@ char *popFromBuffer()
   {
     printf("bufferpointer->last was NOT null\n");
     bufferPointer = bufferPointer->last;
-    // free(bufferPointer->next);
+    free(bufferPointer->next);
     printf("Changed bufferPointer to its 'last', changing it's 'next' to null\n");
     bufferPointer->next = NULL;
   }
