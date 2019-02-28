@@ -50,6 +50,7 @@ void pushToBuffer(char newWord[])
 
 char *popFromBuffer()
 {
+  printf("popFromBuffer time: bufferPointer->word: $s\n", bufferPointer->word);
   char *returnWord = bufferPointer->word;
   if (bufferPointer->last == NULL)
   {
