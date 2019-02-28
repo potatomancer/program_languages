@@ -105,6 +105,7 @@ bool isIdentifierDeclared(char identifier[])
     {
       flag = true;
     }
+    mover = mover->next;
   }
   if (flag)
   {
