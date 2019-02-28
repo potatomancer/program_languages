@@ -11,7 +11,7 @@
 
 struct registerNode
 {
-  char word[30];
+  char word[20];
   registerNode *next;
   registerNode *last;
 };
@@ -20,7 +20,7 @@ registerNode *registerHead = NULL;
 registerNode *registerPointer = NULL;
 
 /* Method to initially create the token linked list */
-registerNode *createRegisterStack(char newWord[30])
+registerNode *createRegisterStack(char newWord[])
 {
   registerHead = (registerNode *)malloc(sizeof(registerNode));
   strcpy(registerHead->word, newWord);
