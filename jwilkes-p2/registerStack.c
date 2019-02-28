@@ -174,7 +174,7 @@ void writeOutRegister(registerNode *start, char *filename)
   printf("]****\n");
   if (originalStart != NULL)
   {
-    writeOutRegister(originalStart);
+    writeOutRegister(originalStart, fncopy);
   }
   free(R0);
   free(R1);
