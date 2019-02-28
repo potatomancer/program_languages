@@ -53,6 +53,7 @@ void pushToRegister(char newWord[])
     strcpy(registerPointer->word, newWord);
     printf(" 6");
     registerPointer->next = NULL;
+    free(newNode);
   }
   printf("did this FINISH?!\n");
 }
