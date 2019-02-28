@@ -55,12 +55,15 @@ char *popFromBuffer()
   strcpy(returnWord, bufferPointer->word);
   if (bufferPointer->last == NULL)
   {
+    printf("bufferpointer->last was null here\n");
     bufferPointer = NULL;
   }
   else
   {
+    printf("bufferpointer->last was NOT null\n");
     bufferPointer = bufferPointer->last;
     // free(bufferPointer->next);
+    printf("Changed bufferPointer to its 'last', changing it's 'next' to null\n");
     bufferPointer->next = NULL;
   }
   printf("popFromBuffer: %s\n", bufferPointer->word);
