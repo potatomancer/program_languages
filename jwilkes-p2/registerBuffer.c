@@ -62,6 +62,7 @@ char *popFromBuffer()
     bufferPointer->next = NULL;
   }
   printf("popFromBuffer: %s\n", bufferPointer->word);
+  printf("returned word for pushing: %s\n", returnWord);
   return returnWord;
 }
 
