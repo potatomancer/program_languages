@@ -100,10 +100,13 @@ registerNode *getRegisterHead()
 
 void writeOutRegister(registerNode *start, char *filename)
 {
+  char *fncopy = (char *)malloc(30);
+  strcpy(fncopy, filename);
   int fnlength = strlen(filename);
-  filename[fnlength - 3] = "o";
-  filename[fnlength - 2] = "u";
-  filename[fnlength - 1] = "t";
+  fncopy[fnlength - 3] = "o";
+  fncopy[fnlength - 2] = "u";
+  fncopy[fnlength - 1] = "t";
+  printf("%s\n", fncopy);
   FILE *fp;
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
