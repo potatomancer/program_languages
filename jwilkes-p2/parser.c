@@ -354,6 +354,8 @@ void evaluateTokenForPostfix()
         pushToRegister(popFromBuffer());
         bufferLast = getBufferLast();
       }
+      printf("BEFORE bufferRemoveFromMiddle");
+      printRegisterStack();
       bufferRemoveFromMiddle(bufferLast->word);
     }
     else if (indexOf(runner->word) < indexOf(bufferLast->word))
