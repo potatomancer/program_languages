@@ -65,22 +65,24 @@ char *popFromBuffer()
   return returnWord;
 }
 
-void bufferRemoveFromMiddle(bufferNode *node)
+void bufferRemoveFromMiddle(char *word)
 {
   printf("bufferRemoveFromMiddle\n");
-  bufferNode *head = bufferHead;
-  while (head != NULL)
+  bufferNode *pointer = bufferPointer;
+  while (pointer != NULL)
   {
-    if (head == node)
+    if (pointer->word == word)
     {
+      printf("I'm one step closer to the edge: %s\n", pointer->word);
       break;
     }
-    head = head->next;
+    pointer = pointer->next;
   }
-  if (head != NULL)
+  printf("And I'm about to break.  I already broke: %s\n", pointer->word);
+  if (pointer != NULL)
   {
-    head->next->last = head->last;
-    head->last->next = head->next;
+    pointer->next->last = pointer->last;
+    pointer->last->next = pointer->next;
   }
 }
 
