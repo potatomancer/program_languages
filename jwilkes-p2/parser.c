@@ -369,7 +369,7 @@ void evaluateTokenForPostfix()
         {
           break;
         }
-        bufferLast = bufferLast->last;
+        bufferLast = getBufferLast();
       }
       pushToBuffer(runner->word);
     }
@@ -387,10 +387,10 @@ void evaluateTokenForPostfix()
     6. Repeat steps 2-6 until infix expression is scanned.
     7. Print the output
     8. Pop and output from the stack until it is not empty. */
-  /*   if (strcmp(runner->next->word, ";") == 0 && getBufferLast() != NULL)
+  if (strcmp(runner->next->word, ";") == 0 && getBufferLast() != NULL)
   {
     pushToRegister(popFromBuffer());
-  } */
+  }
   runner = runner->next;
 }
 
