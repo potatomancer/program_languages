@@ -108,7 +108,7 @@ void writeOutRegister(registerNode *start, char *filename)
   fncopy[fnlength - 1] = 't';
   printf("THIS FILE: %s\n", fncopy);
   FILE *fp;
-  fp = fopen(fncopy, "w");
+  fp = fopen(fncopy, "a+");
   printf("WRITE OUT REGISTER: \n");
   registers *R0 = (registers *)malloc(sizeof(registers));
   strcpy(R0->R, "R0\0");
