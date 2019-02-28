@@ -2,6 +2,7 @@
 #include "tokenList.h"
 #include "lexicalAnalyzer.h"
 #include "declaredIdentifiersList.h"
+#include "registerStack.h"
 #include "parser.h"
 #include <stdio.h>
 
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
     if (isValidProgram())
     {
       printf("Program valid!\n");
-      printDIList();
+      printRegisterStack();
     }
     else
     {
