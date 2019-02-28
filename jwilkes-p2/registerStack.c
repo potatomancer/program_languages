@@ -158,7 +158,7 @@ void writeOutRegister(registerNode *start)
   }
   printf("****[");
   originalStart = originalStart->next->next;
-  while (strcmp(originalStart, ";") != 0)
+  while (strcmp(originalStart->word, ";") != 0)
   {
     printf("%s,", originalStart->word);
     originalStart = originalStart->next;
