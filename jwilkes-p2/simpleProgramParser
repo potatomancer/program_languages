@@ -8,11 +8,11 @@ make
 ./run prog3Illegal.txt
 ./run prog4Illegal.txt
 make clean
-printf "\ncat prog1legal.out"
+printf "\ncat prog1legal.out\n"
 cat prog1legal.out
-printf "\ncat prog2legal.out"
+printf "\ncat prog2legal.out\n"
 cat prog2legal.out
-printf "\ncat prog3legal.out"
+printf "\ncat prog3legal.out\n"
 cat prog3legal.out
-printf "\ncat prog4legal.out"
+printf "\ncat prog4legal.out\n"
 cat prog4legal.out
