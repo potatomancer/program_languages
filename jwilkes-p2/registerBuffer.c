@@ -90,6 +90,18 @@ void bufferRemoveFromMiddle(char *word)
       pointer->last->next = pointer->next;
     }
   }
+  if (pointer->next != NULL)
+  {
+    while (pointer->next != NULL)
+    {
+      pointer = pointer->next;
+    }
+    bufferPointer = pointer;
+  }
+  else
+  {
+    bufferPointer = pointer->last;
+  }
 }
 
 /* Method to print all nodes and node data in token linked list */
