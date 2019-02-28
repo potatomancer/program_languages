@@ -122,7 +122,7 @@ void writeOutRegister(registerNode *start)
   while (strcmp(start->word, ";") != 0)
   {
     printf("start while loop: %s\n", start->word);
-    if (strcmp(start->word, "*") != 0 && strcmp(start->word, "/") != 0 && strcmp(start->word, "+") != 0 && strcmp(start->word, "-") != 0)
+    if (strcmp(start->word, "*") == 0 || strcmp(start->word, "/") == 0 || strcmp(start->word, "+") == 0 || strcmp(start->word, "-") == 0)
     {
       printf("operator\n");
       int i1 = 3;
