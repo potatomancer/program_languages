@@ -329,6 +329,7 @@ void evaluateTokenForPostfix()
   else if (strcmp(runner->whatAmI, OPERATOR) == 0)
   {
     bufferNode *bufferLast = getBufferLast();
+    printf("bufferLast: %s\n", bufferLast->word);
     if (bufferLast == NULL)
     {
       printf("%s: bufferLast == NULL\n", runner->word);
