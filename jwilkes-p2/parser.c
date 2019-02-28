@@ -31,14 +31,14 @@ struct lexemeNode
 #define VALUE "value"
 #define COMMENT "comment"
 #define terminalOperatorsCount 7
-char terminalOperators[terminalOperatorsCount] = {
-    '(',
-    '/',
-    '*',
-    '+',
-    '-',
-    ')',
-    '=',
+char *terminalOperators[terminalOperatorsCount] = {
+    "(",
+    "/",
+    "*",
+    "+",
+    "-",
+    ")",
+    "=",
 };
 
 lexemeNode *runner = NULL;
@@ -90,7 +90,7 @@ bool isValidProgram()
   }
   else
   {
-    getFirstAssignmentStatment();
+    getFirstAssignmentStatement();
     registerCalculation();
     return true;
   }
@@ -325,7 +325,7 @@ void evaluateTokenForPostfix()
     {
       pushToBuffer(runner->word);
     }
-    else if (indexOf(runner->word) > indexOf(bufferLast))
+    else if (indexOf(runner->word) > indexOf(bufferLast->word))
     {
       pushToBuffer(runner->word);
     }
@@ -333,7 +333,7 @@ void evaluateTokenForPostfix()
     {
       while (bufferLast != NULL)
       {
-        if (indexOf(bufferLast) > indexOf(runner->word))
+        if (indexOf(bufferLast->word) > indexOf(runner->word))
         {
           pushToRegister(popFromBuffer());
         }
