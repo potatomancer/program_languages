@@ -179,7 +179,7 @@ void writeOutRegister(registerNode *start, char *filename)
   originalStart = originalStart->next;
   fprintf(fp, "]****\n");
   printf("]****\n");
-  if (originalStart != NULL)
+  if (originalStart->next != NULL)
   {
     writeOutRegister(originalStart, filename);
   }
