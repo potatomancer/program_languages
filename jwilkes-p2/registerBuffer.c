@@ -57,6 +57,24 @@ char *popFromBuffer()
   return returnWord;
 }
 
+void bufferRemoveFromMiddle(bufferNode *node)
+{
+  bufferNode *head = bufferHead;
+  while (head != NULL)
+  {
+    if (head == node)
+    {
+      break;
+    }
+    head = head->next;
+  }
+  if (head != NULL)
+  {
+    head->next->last = head->last;
+    head->last->next = head->next;
+  }
+}
+
 /* Method to print all nodes and node data in token linked list */
 void printBufferStack()
 {

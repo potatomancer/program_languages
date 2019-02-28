@@ -13,5 +13,6 @@ bufferNode *getBufferHead();
 void printBufferBackwards();
 bufferNode *getBufferLast();
 char *popFromBuffer();
+void bufferRemoveFromMiddle(bufferNode *node);
 
 #endif
