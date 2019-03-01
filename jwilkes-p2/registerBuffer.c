@@ -19,7 +19,7 @@ struct bufferNode
 bufferNode *bufferHead = NULL;
 bufferNode *bufferPointer = NULL;
 
-/* Method to initially create the token linked list */
+/* Method to initially create the buffer's linked list */
 bufferNode *createBufferStack(char newWord[])
 {
   bufferHead = (bufferNode *)malloc(sizeof(bufferNode));
@@ -30,7 +30,7 @@ bufferNode *createBufferStack(char newWord[])
   return bufferHead;
 }
 
-/* Method to push new data into token linked list */
+/* Method to push new data into buffer's linked list */
 void pushToBuffer(char newWord[])
 {
   if (bufferPointer == NULL)
@@ -48,6 +48,7 @@ void pushToBuffer(char newWord[])
   }
 }
 
+/* Method to remove the last data item from buffer’s linked list */
 char *popFromBuffer()
 {
   char *returnWord = (char *)malloc(30);
@@ -65,6 +66,7 @@ char *popFromBuffer()
   return returnWord;
 }
 
+/* Method to remove a data item from the middle of the buffer’s linked list */
 void bufferRemoveFromMiddle(char *word)
 {
   bufferNode *pointer = bufferPointer;
@@ -101,7 +103,7 @@ void bufferRemoveFromMiddle(char *word)
   }
 }
 
-/* Method to print all nodes and node data in token linked list */
+/* Method to print all buffer data buffer's linked list */
 void printBufferStack()
 {
   bufferNode *printer = bufferHead;
@@ -120,31 +122,13 @@ void printBufferStack()
   }
 }
 
-void printBufferBackwards()
-{
-  bufferNode *printer = bufferHead;
-  while (printer != NULL)
-  {
-    if (printer->last == NULL)
-    {
-      printf("%s\n", printer->word);
-      printer = printer->next;
-    }
-    else
-    {
-      printf("%s, ", printer->word);
-      printer = printer->last;
-    }
-  }
-}
-
-/* Returns bufferHead of token linked list */
+/* Returns bufferHead of buffer's linked list */
 bufferNode *getBufferHead()
 {
   return bufferHead;
 }
 
-/* Returns bufferHead of token linked list */
+/* Returns bufferHead of buffer's linked list */
 bufferNode *getBufferLast()
 {
   return bufferPointer;

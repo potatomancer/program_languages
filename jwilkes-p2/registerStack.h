@@ -4,13 +4,12 @@
 #include <stdio.h>
 
 typedef struct registerNode registerNode;
-
-registerNode *createRegisterStack(char word[]);
+typedef struct registers registers;
+registerNode *
+createRegisterStack(char word[]);
 void pushToRegister(char newWord[]);
 void printRegisterStack();
 registerNode *getRegisterHead();
-
-void printRegisterListBackwards();
 void writeOutRegister(registerNode *start, char *filename);
 
 #endif

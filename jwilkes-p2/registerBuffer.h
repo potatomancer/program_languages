@@ -9,8 +9,6 @@ bufferNode *createBufferStack(char word[]);
 void pushToBuffer(char newWord[]);
 void printBufferStack();
 bufferNode *getBufferHead();
-
-void printBufferBackwards();
 bufferNode *getBufferLast();
 char *popFromBuffer();
 void bufferRemoveFromMiddle(char *node);

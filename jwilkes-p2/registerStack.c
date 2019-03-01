@@ -20,15 +20,15 @@ struct registerNode
 registerNode *registerHead = NULL;
 registerNode *registerPointer = NULL;
 
-typedef struct registers
+struct registers
 {
   char R[3];
   bool used;
-} registers;
+};
 
 FILE *fp = NULL;
 
-/* Method to initially create the token linked list */
+/* Method to initially create the register's linked list */
 registerNode *createRegisterStack(char newWord[])
 {
   registerHead = (registerNode *)malloc(sizeof(registerNode));
@@ -39,7 +39,7 @@ registerNode *createRegisterStack(char newWord[])
   return registerHead;
 }
 
-/* Method to push new data into token linked list */
+/* Method to push new data into register's linked list */
 void pushToRegister(char newWord[])
 {
   if (registerPointer == NULL)
@@ -57,7 +57,7 @@ void pushToRegister(char newWord[])
   }
 }
 
-/* Method to print all nodes and node data in token linked list */
+/* Method to print all nodes and node data in register's linked list */
 void printRegisterStack()
 {
   registerNode *printer = registerHead;
@@ -76,30 +76,13 @@ void printRegisterStack()
   }
 }
 
-void printRegisterListBackwards()
-{
-  registerNode *printer = registerHead;
-  while (printer != NULL)
-  {
-    if (printer->last == NULL)
-    {
-      printf("%s\n", printer->word);
-      printer = printer->next;
-    }
-    else
-    {
-      printf("%s, ", printer->word);
-      printer = printer->last;
-    }
-  }
-}
-
-/* Returns registerHead of token linked list */
+/* Returns registerHead of register's linked list */
 registerNode *getRegisterHead()
 {
   return registerHead;
 }
 
+/* This method takes the generated postfix expressions in the register and generates register based code to evaluate each expression, then it writes it all to a file based on the input file’s name */
 void writeOutRegister(registerNode *start, char *filename)
 {
   if (fp == NULL)
