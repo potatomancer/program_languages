@@ -55,6 +55,7 @@ if len(sys.argv) == 3:
         x - (circle_diameter/2), y, x + (circle_diameter/2), y + circle_diameter, fill="lightblue"))
     canvas.create_text(x, y + circle_diameter/2, text=0,
                        font="Arial 20")
+    # Create every other state
     for index in range(number_of_states - 1):
         y = y + circle_diameter
         links.append(canvas.create_line(
