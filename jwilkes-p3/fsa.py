@@ -1,8 +1,7 @@
 from tkinter import Tk, Canvas, LAST, mainloop
 import math
-
+import random
 import sys
-
 if len(sys.argv) == 3:
     # Try to access both files
     try:
@@ -17,16 +16,15 @@ if len(sys.argv) == 3:
     except EnvironmentError:
         print("Invalid second argument passed.")
         quit()
-
     # Try to parse through the fsa file
     try:
         fsa = firstContent.split(";")
         number_of_states = int(fsa[0])
         alphabet = fsa[1]
         state_transitions = fsa[2].split(",")
-        # Iterate through state_transitions list
+        # To strip and split the state transitions: iterate through state_transitions list
         for i, trans in enumerate(state_transitions):
-            # Left and right strip the paranthesis from the state_transitions list
+            # Left and right strip the parantheses from the state_transitions list
             trans = trans.lstrip("(")
             trans = trans.rstrip(")")
             # Split each transition on colon
@@ -36,6 +34,7 @@ if len(sys.argv) == 3:
                 # Make the first two values integers, keeping the third as a string
                 if index != 2:
                     trans[index] = int(trans[index])
+            # Assign trans to its position in the state_transitions array to update value
             state_transitions[i] = trans
         start_state = int(fsa[3])
         accept_states = fsa[4].split(",")
@@ -43,13 +42,15 @@ if len(sys.argv) == 3:
     except ValueError:
         print("Invalid FSA file.")
         quit()
-
     # Global canvas variables
     circle_diameter = 50
     line_length = 100
-    canvas_title = "Computer Programming Project 3 - FSA GUI"
-    # canvas_width gets set at the bottom
+    line_width = 2
+    line_active_width = 4
+    line_arrow_shape = (9, 10, 9)
+    canvas_title = "COP4020 Project 3 - FSA GUI"
     canvas_width = 500
+    # Height is dependent based on number of states
     canvas_height = 50 + ((circle_diameter * number_of_states) +
                           (number_of_states - 1) * line_length)
     master = Tk()
@@ -58,20 +59,18 @@ if len(sys.argv) == 3:
     # x and y coordinates to construct graph with
     x = canvas_width/2
     y = 25
-    # nodes and links
+    # nodes
     states = []
-    links = []
-
     # Create every state
     for index in range(number_of_states):
         if index == 0:
             # Create first state
             states.append(canvas.create_oval(
-                x - (circle_diameter/2),
+                x-(circle_diameter/2),
                 y,
                 x+(circle_diameter/2),
-                y + circle_diameter, fill="lightblue"))
-            canvas.create_text(x, y + circle_diameter/2,
+                y+circle_diameter, fill="lightblue"))
+            canvas.create_text(x, y+circle_diameter/2,
                                text=index+start_state, font="Arial 20")
         else:
             # Fix height of y to the bottom of the circle
@@ -83,12 +82,8 @@ if len(sys.argv) == 3:
                 x+(circle_diameter/2),
                 y+circle_diameter, fill="lightblue"))
             # Create state text and place it in the center of the circle, Arial 20 because I like to style things don't @ me
-            canvas.create_text(x, y + circle_diameter/2, text=index + start_state,
-                               font="Arial 20")
-
-    # Reset y to canvas padding from top + first circle
-    y = 25 + circle_diameter
-
+            canvas.create_text(x, y + circle_diameter/2,
+                               text=index + start_state, font="Arial 20")
     # Create variable for measuring how many multiple state transitions (MST) happen and a variable for the padding
     mst_number = 0
     mst_padding = 25
@@ -96,65 +91,71 @@ if len(sys.argv) == 3:
     for index in range(number_of_states):
         transitions = filter(lambda x: x[0] == index, state_transitions)
         for z in transitions:
+            # Reset x, y position to the bottom of the current state circle
+            coords = canvas.coords(states[index])
+            x = coords[2] - (circle_diameter/2)
+            y = coords[3]
+            # Generate random activefill color for line
+            activefill = "#{:06x}".format(random.randint(0, 0xFFFFFF))
             # From current state to same state
             if z[1] == index:
                 # Place x, y position at center of current circle
                 y = y - circle_diameter/2
                 # Create line that curves out from circle and points back to circle
-                links.append(canvas.create_line(
-                    x+(circle_diameter/2)*math.sin(math.pi/4),
-                    y+(circle_diameter/2)*math.cos(math.pi/4),
-                    x+circle_diameter*1.5,
-                    y,
-                    x+(circle_diameter/2)*math.sin(3*math.pi/4),
-                    y+(circle_diameter/2)*math.cos(3*math.pi/4), width=2, arrow=LAST, smooth=True))
+                canvas.create_line(
+                    x+(circle_diameter/2)*math.cos(math.pi/4),
+                    y+(circle_diameter/2)*math.sin(math.pi/4),
+                    x+circle_diameter-(circle_diameter/2) *
+                    math.cos(math.pi/2),
+                    y+(circle_diameter/2)*math.sin(math.pi/4),
+                    x+circle_diameter+(circle_diameter/2) *
+                    math.cos(math.pi/2),
+                    y-(circle_diameter/2)*math.sin(math.pi/4),
+                    x+(circle_diameter/2)*math.cos(math.pi/4),
+                    y-(circle_diameter/2)*math.sin(math.pi/4),
+                    width=line_width, activewidth=line_active_width, arrow=LAST,
+                    arrowshape=line_arrow_shape, smooth=True, activefill=activefill)
                 # Give line its label
-                canvas.create_text(x + 7 + circle_diameter, y, text=z[2],
+                canvas.create_text(x + 15 + circle_diameter, y, text=z[2],
                                    font="Arial 20")
-                # Reset y value back to bottom of the circle
-                y = y + circle_diameter/2
             # From current state to next state:
             elif z[1] == index + 1:
-                # Create new line, append it to the links list, and update y
-                links.append(canvas.create_line(
-                    x, y, x, y + line_length, width=2, arrow=LAST))
-                y = y + line_length/2
-                canvas.create_text(x + 10, y, text=z[2],
-                                   font="Arial 20")
-                y = y + line_length/2 + circle_diameter
+                # Create new line, append it to the links list
+                line = canvas.create_line(
+                    x, y, x, y + line_length,
+                    width=line_width, activewidth=line_active_width,
+                    arrow=LAST, arrowshape=line_arrow_shape, activefill=activefill)
+                text = canvas.create_text(x + 10, y+line_length/2, text=z[2],
+                                          font="Arial 20")
             # From current state jumping to state more than one away
-            elif z[1] <= number_of_states:
+            elif z[1] - z[0] > 1 or z[1] - z[0] < -1:
                 # Increment multiple state transition number
                 mst_number = mst_number + 1
-                # Store x, y position
-                oldX = x
-                oldY = y
                 # Set y to center of state circle
                 y = y-(circle_diameter/2)
                 # Set new x, y to the left side of the state circle
                 x = x-(circle_diameter/2)*math.sin(math.pi/2)
                 y = y-(circle_diameter/2)*math.cos(math.pi/2)
-                # Create line that extends out mst_padding * mst_number worth of times
-                links.append(canvas.create_line(
-                    x, y, x-(mst_padding*mst_number), y, width=2))
-                # Update x to the end of the line
-                x = x-(mst_padding*mst_number)
                 # Get the difference of states between current and target state
                 difference_states = z[1] - z[0]
-                # Create a line that extends up or down to the target state
-                links.append(canvas.create_line(
-                    x, y, x, y+((circle_diameter+line_length)*difference_states), width=2))
-                # Update y to the end of the line
-                y = y+((circle_diameter+line_length)*difference_states)
-                # Create label for arrow here
-                canvas.create_text(x + 10, y-(((circle_diameter+line_length)*difference_states)/2), text=z[2],
-                                   font="Arial 20")
-                # Create a line that points back to the target state
-                links.append(canvas.create_line(
-                    x, y, x+(mst_padding*mst_number), y, width=2, arrow=LAST))
-                # Reset x, y position back to the bottom of the circle of the current state
-                x = oldX
-                y = oldY
+                canvas.create_line(
+                    x,  # Start at left side of circle
+                    y,
+                    # Go out by padding * mst number
+                    x-(mst_padding*mst_number),
+                    y,
+                    x-(mst_padding*mst_number),  # Go up to target circle
+                    y+((circle_diameter+line_length)*difference_states),
+                    x,  # Touch target circle
+                    y+((circle_diameter+line_length)*difference_states),
+                    width=line_width, activewidth=line_active_width, activefill=activefill,
+                    arrow=LAST, arrowshape=line_arrow_shape)
+                # Create label for arrow
+                canvas.create_text(
+                    x-(mst_padding*mst_number)+10,
+                    y+(((circle_diameter+line_length)*difference_states)/2),
+                    text=z[2],
+                    font="Arial 20")
     # Now parse through the pathString to determine if the path is legal with currentNodeInPath starting at 0
     currentNodeInPath = 0
     legalPath = True
@@ -186,6 +187,9 @@ if len(sys.argv) == 3:
         print("Path is legal!")
     else:
         print("Path is not legal :(")
+    # Create clarifying text to indicate that arrows can be scrolled over
+    canvas.create_text(canvas_width/2, canvas_height - 10, text="*If lines overlap, please scroll over the line.",
+                       font="Arial 12")
     # Pack it up, title it up, loop it up!
     canvas.pack()
     master.wm_title(canvas_title)
