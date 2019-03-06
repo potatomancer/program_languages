@@ -38,6 +38,9 @@ if len(sys.argv) == 3:
             state_transitions[i] = trans
         start_state = int(fsa[3])
         accept_states = fsa[4].split(",")
+        # Change accept_states array to integers instead of strings
+        for i in range(len(accept_states)):
+            accept_states[i] = int(accept_states[i])
         pathString = list(map(str, secondContent))
     except ValueError:
         print("Invalid FSA file.")
@@ -84,6 +87,13 @@ if len(sys.argv) == 3:
             # Create state text and place it in the center of the circle, Arial 20 because I like to style things don't @ me
             canvas.create_text(x, y + circle_diameter/2,
                                text=index + start_state, font="Arial 20")
+        # Create extra circles inside of states inside of accept_states array
+        if index in accept_states:
+            canvas.create_oval(
+                x-(circle_diameter/2) + 3,
+                y + 3,
+                x+(circle_diameter/2) - 3,
+                y+circle_diameter - 3)
     # Create variable for measuring how many multiple state transitions (MST) happen and a variable for the padding
     mst_number = 0
     mst_padding = 25
