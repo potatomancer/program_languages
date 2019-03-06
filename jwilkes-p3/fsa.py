@@ -156,8 +156,8 @@ if len(sys.argv) == 3:
                     y+(((circle_diameter+line_length)*difference_states)/2),
                     text=z[2],
                     font="Arial 20")
-    # Now parse through the pathString to determine if the path is legal with currentNodeInPath starting at 0
-    currentNodeInPath = 0
+    # Now parse through the pathString to determine if the path is legal with currentNodeInPath starting at start_state
+    currentNodeInPath = start_state
     legalPath = True
     for path in pathString:
         # If current character in pathString is a newline, space, or tab, just continue

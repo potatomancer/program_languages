@@ -1,0 +1,1 @@
+python fsa.py fsa.text illegal.txt
