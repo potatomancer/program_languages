@@ -2,6 +2,7 @@ from tkinter import Tk, Canvas, LAST, mainloop
 import math
 import random
 import sys
+
 if len(sys.argv) == 3:
     # Try to access both files
     try:
@@ -53,6 +54,7 @@ if len(sys.argv) == 3:
     line_arrow_shape = (9, 10, 9)
     canvas_title = "COP4020 Project 3 - FSA GUI"
     canvas_width = 500
+    states = []
     # Height is dependent based on number of states
     canvas_height = 50 + ((circle_diameter * number_of_states) +
                           (number_of_states - 1) * line_length)
@@ -63,7 +65,7 @@ if len(sys.argv) == 3:
     x = canvas_width/2
     y = 25
     # nodes
-    states = []
+    # states=[]
     # Create every state
     for index in range(number_of_states):
         if index == 0:
@@ -131,12 +133,12 @@ if len(sys.argv) == 3:
             # From current state to next state:
             elif z[1] == index + 1:
                 # Create new line, append it to the links list
-                line = canvas.create_line(
+                canvas.create_line(
                     x, y, x, y + line_length,
                     width=line_width, activewidth=line_active_width,
                     arrow=LAST, arrowshape=line_arrow_shape, activefill=activefill)
-                text = canvas.create_text(x + 10, y+line_length/2, text=z[2],
-                                          font="Arial 20")
+                canvas.create_text(x + 10, y+line_length/2, text=z[2],
+                                   font="Arial 20")
             # From current state jumping to state more than one away
             elif z[1] - z[0] > 1 or z[1] - z[0] < -1:
                 # Increment multiple state transition number
@@ -166,10 +168,16 @@ if len(sys.argv) == 3:
                     y+(((circle_diameter+line_length)*difference_states)/2),
                     text=z[2],
                     font="Arial 20")
-    # Now parse through the pathString to determine if the path is legal with currentNodeInPath starting at start_state
-    currentNodeInPath = start_state
-    legalPath = True
+    # Now parse through the pathString to determine if the path is legal with current_node_in_path starting at start_state
+    current_node_in_path = start_state
+    legal_path = True
+    error_message = ""
     for path in pathString:
+        # Check for illegal paths in the pathString against the alphabet
+        if path not in alphabet:
+            error_message = "One of the paths in string is not a valid transition state."
+            legal_path = False
+            break
         # If current character in pathString is a newline, space, or tab, just continue
         if path == "\n" or path == " " or path == "\t":
             continue
@@ -177,26 +185,31 @@ if len(sys.argv) == 3:
         if(alphabet.find(path) != -1):
             # Return an array of the possible path options from state_transitions
             pathOptions = filter(
-                lambda x: x[0] == currentNodeInPath, state_transitions)
+                lambda x: x[0] == current_node_in_path, state_transitions)
             # In each state transition
             for pathOption in pathOptions:
                 # If current character in pathString finds an acceptable pathj
                 if path == pathOption[2]:
-                    # Then take that path, and make sure legalPath is True and break from inner for loop
-                    currentNodeInPath = pathOption[1]
-                    legalPath = True
+                    # Then take that path, and make sure legal_path is True and break from inner for loop
+                    current_node_in_path = pathOption[1]
+                    legal_path = True
                     break
                 else:
-                    # Else, make sure legalPath remains false
-                    legalPath = False
-        # If legalPath was found false at the end of each 'path' loop, break loop
-        if legalPath == False:
+                    # Else, make sure legal_path remains false
+                    legal_path = False
+        # If legal_path was found false at the end of each 'path' loop, break loop
+        if legal_path == False:
+            error_message = "Illegal path option."
             break
-    # Print result of path
-    if legalPath:
+    # Check if the final state of the program is in accept_states, else update error message
+    if legal_path and current_node_in_path not in accept_states:
+        legal_path = False
+        error_message = "Illegal final state."
+    # Print result of path and error if illegal
+    if legal_path:
         print("Path is legal!")
     else:
-        print("Path is not legal :(")
+        print("Path is not legal :(.  Here's why: ", error_message)
     # Create clarifying text to indicate that arrows can be scrolled over
     canvas.create_text(canvas_width/2, canvas_height - 10, text="*If lines overlap, please scroll over the line.",
                        font="Arial 12")

@@ -1,1 +1,1 @@
-python fsa.py fsa.text illegal.txt
+python fsa.py fsa.txt illegal.txt
