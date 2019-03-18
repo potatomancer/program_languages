@@ -47,8 +47,9 @@ if len(sys.argv) == 3:
         print("Invalid FSA file.")
         quit()
     # Global canvas variables
-    circle_diameter = 50
-    line_length = 100
+    circle_diameter = 50 - (((number_of_states - 5) * 5)
+                            if number_of_states > 5 else 0)
+    line_length = circle_diameter * 2
     line_width = 2
     line_active_width = 4
     line_arrow_shape = (9, 10, 9)
@@ -64,8 +65,6 @@ if len(sys.argv) == 3:
     # x and y coordinates to construct graph with
     x = canvas_width/2
     y = 25
-    # nodes
-    # states=[]
     # Create every state
     for index in range(number_of_states):
         if index == 0:
@@ -175,7 +174,7 @@ if len(sys.argv) == 3:
     for path in pathString:
         # Check for illegal paths in the pathString against the alphabet
         if path not in alphabet:
-            error_message = "One of the paths in string is not a valid transition state."
+            error_message = "Path " + path + " is not a valid transition state."
             legal_path = False
             break
         # If current character in pathString is a newline, space, or tab, just continue
@@ -199,15 +198,17 @@ if len(sys.argv) == 3:
                     legal_path = False
         # If legal_path was found false at the end of each 'path' loop, break loop
         if legal_path == False:
-            error_message = "Illegal path option."
+            error_message = "Illegal path option: State: " + \
+                str(current_node_in_path) + ", Path: " + path
             break
     # Check if the final state of the program is in accept_states, else update error message
     if legal_path and current_node_in_path not in accept_states:
         legal_path = False
-        error_message = "Illegal final state."
+        error_message = "Illegal final state: " + \
+            str(current_node_in_path) + ", must be: " + accept_states
     # Print result of path and error if illegal
     if legal_path:
-        print("Path is legal!")
+        print("Path is legal!  Ended on node: " + str(current_node_in_path))
     else:
         print("Path is not legal :(.  Here's why: ", error_message)
     # Create clarifying text to indicate that arrows can be scrolled over
