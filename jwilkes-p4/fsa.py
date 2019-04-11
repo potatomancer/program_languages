@@ -47,53 +47,6 @@ if len(sys.argv) == 3:
         quit()
     states = []
 
-    # Now parse through the pathString to determine if the path is legal with current_node_in_path starting at start_state
-    current_node_in_path = start_state
-    legal_path = True
-    error_message = ""
-    for path in pathString:
-        # Check for illegal paths in the pathString against the alphabet
-        if path not in alphabet:
-            error_message = "Path " + path + " is not a valid transition state."
-            legal_path = False
-            break
-        # If current character in pathString is a newline, space, or tab, just continue
-        if path == "\n" or path == " " or path == "\t":
-            continue
-        # If current character in pathString is found (not -1) in the valid path variables (alphabet)
-        if(alphabet.find(path) != -1):
-            # Return an array of the possible path options from state_transitions
-            pathOptions = filter(
-                lambda x: x[0] == current_node_in_path, state_transitions)
-            # In each state transition
-            for pathOption in pathOptions:
-                # If current character in pathString finds an acceptable pathj
-                if path == pathOption[2]:
-                    # Then take that path, and make sure legal_path is True and break from inner for loop
-                    current_node_in_path = pathOption[1]
-                    legal_path = True
-                    break
-                else:
-                    # Else, make sure legal_path remains false
-                    legal_path = False
-        # If legal_path was found false at the end of each 'path' loop, break loop
-        if legal_path == False:
-            error_message = "Illegal path option: State: " + \
-                str(current_node_in_path) + ", Path: " + path
-            break
-    # Check if the final state of the program is in accept_states, else update error message
-    if legal_path and current_node_in_path not in accept_states:
-        legal_path = False
-        error_message = "Illegal final state: " + \
-            str(current_node_in_path) + ", must be: " + accept_states
-    # Print result of path and error if illegal
-    if legal_path:
-        print("Path is legal!  Ended on node: " + str(current_node_in_path))
-    else:
-        print("Path is not legal :(.  Here's why: ", error_message)
-
-    print("\nNow try it in Lisp!\nOpen up \"xlwin32.exe\", and type \"(load \"part_two.lsp\")\", just make sure \"theString.txt\" exists!")
-
     # Make Lisp program from Python variables: Create numbersToWords dictionary and open file
     numbersToWords = {0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
                       6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
@@ -147,6 +100,7 @@ if len(sys.argv) == 3:
     for piece in program:
         part_two.write(piece)
     part_two.close()
+    print("Now try the Lisp program!\nOpen up \"xlwin32.exe\", and type \"(load \"part_two.lsp\")\", then \"(demo)\".  Just make sure \"theString.txt\" exists!")
 else:
     print("Program requires two arguments: python fsa.py <fsa.txt> <legal/illegal.txt>")
     quit()
