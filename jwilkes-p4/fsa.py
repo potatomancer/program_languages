@@ -143,7 +143,7 @@ if len(sys.argv) == 3:
         "(DEFUN acceptState (n)\n    (cond\n")
     for i in accept_states:
         program.append(
-            "        ((equal n " + str(i) + ")(princ \"\\nLegal\")\n")
+            "        ((equal n " + str(i) + ")(princ \"\\nLegal\"))\n")
     program.append(
         "        (t(princ \"\\nNot Legal\"))\n" +
         "    )\n" +
