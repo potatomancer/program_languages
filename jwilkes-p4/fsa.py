@@ -46,6 +46,7 @@ if len(sys.argv) == 3:
         print("Invalid FSA file.")
         quit()
     states = []
+
     # Now parse through the pathString to determine if the path is legal with current_node_in_path starting at start_state
     current_node_in_path = start_state
     legal_path = True
@@ -90,6 +91,67 @@ if len(sys.argv) == 3:
         print("Path is legal!  Ended on node: " + str(current_node_in_path))
     else:
         print("Path is not legal :(.  Here's why: ", error_message)
+
+    print("\nNow try it in Lisp!\nOpen up \"xlwin32.exe\", and type \"(load \"part_two.lsp\")\", just make sure \"theString.txt\" exists!")
+
+    # Make Lisp program from Python variables: Create numbersToWords dictionary and open file
+    numbersToWords = {0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
+                      6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
+                      11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen',
+                      15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen',
+                      19: 'Nineteen', 20: 'Twenty'}
+    part_two = open("part_two.lsp", "w")
+    program = []
+    # Begin demo function
+    program.append("(DEFUN demo()\n" +
+                   "    (setq *state* " + str(start_state) + ")\n" +
+                   "        (let((in (open \"theString.txt\")))\n" +
+                   "        (eval(read-line in))\n" +
+                   "        (close in)\n" +
+                   "    )\n" +
+                   ")\n\n")
+    # Begin eval function
+    program.append("(DEFUN eval(path)\n" +
+                   "    (dotimes(n(length path))\n" +
+                   "        (setq route(subseq path n(+ n 1)))\n" +
+                   "        (cond\n")
+    # Insert as many conditions as there are states
+    for i in range(number_of_states):
+        program.append(
+            "            ((equal *state* " + str(i) + ") (state" + numbersToWords.get(i) + " route))\n")
+    program.append(
+        "        )\n        (cond((equal n(- (length path) 1))(acceptState * state*)))\n    )\n)\n\n")
+    # Begin state functions
+    for i in range(number_of_states):
+        pathOptions = filter(lambda x: x[0] == i, state_transitions)
+        program.append(
+            "(DEFUN state" + numbersToWords.get(i) + "(route)\n" +
+            "    (cond((null route) nil)\n")
+        for pathOption in pathOptions:
+            program.append(
+                "        ((equal route " +
+                pathOption[2] + ")(setq * state * " +
+                str(pathOption[1]) + "))\n"
+            )
+        program.append(
+            "        (t(setq * state * \"x\"))\n" +
+            "    )\n" +
+            ")\n\n")
+
+    # Begin accept states function
+    program.append(
+        "(DEFUN acceptState (n)\n    (cond\n")
+    for i in accept_states:
+        program.append(
+            "        ((equal n " + str(i) + ")(princ \"\\nLegal\")\n")
+    program.append(
+        "        (t(princ \"\\nNot Legal\"))\n" +
+        "    )\n" +
+        ")\n\n")
+
+    for piece in program:
+        part_two.write(piece)
+    part_two.close()
 else:
     print("Program requires two arguments: python fsa.py <fsa.txt> <legal/illegal.txt>")
     quit()
