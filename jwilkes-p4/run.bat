@@ -1,0 +1,1 @@
+python fsa.py fsa.txt theString.txt

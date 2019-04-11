@@ -105,26 +105,14 @@ if len(sys.argv) == 3:
 
     # Begin demo function
     program.append("(DEFUN demo()\n" +
-                   "    (setq *state* " + str(start_state) + ")\n" +
-                   "        (let((in (open \"theString.txt\")))\n" +
-                   "        (eval(read-line in))\n" +
-                   "        (close in)\n" +
-                   "    )\n" +
-                   ")\n\n")
-
-    # Begin eval function
-    program.append("(DEFUN eval(path)\n" +
-                   "    (dotimes(n(length path))\n" +
-                   "        (setq route(subseq path n(+ n 1)))\n" +
-                   "        (cond\n")
-    # Insert as many conditions as there are states
+                   "    (setq *startState* " + str(start_state) + ")\n" +
+                   "    (setq fp (open \"theString.txt\" :direction :input))\n" +
+                   "    (setq *path* (read fp \"done\"))\n" +
+                   "    (cond\n")
     for i in range(number_of_states):
         program.append(
-            "            ((equal *state* " + str(i) + ") (state" + numbersToWords.get(i) + " route))\n")
+            "        ((equal *startState* " + str(i) + ") (state" + numbersToWords.get(i) + " *path*))\n")
     program.append(
-        "            ((equal *state* \"x\") (princ \"\\nNot Legal\") (return))\n" +
-        "        )\n" +
-        "        (cond ((equal n (- (length path) 1)) (acceptState *state*)))\n" +
         "    )\n" +
         ")\n\n")
 
@@ -133,15 +121,15 @@ if len(sys.argv) == 3:
         pathOptions = filter(lambda x: x[0] == i, state_transitions)
         program.append(
             "(DEFUN state" + numbersToWords.get(i) + "(route)\n" +
-            "    (cond ((null route) nil)\n")
+            "    (cond ((null route) (acceptState " + str(i) + "))\n")
         for pathOption in pathOptions:
             program.append(
-                "        ((equal route \"" +
-                pathOption[2] + "\")(setq *state* " +
-                str(pathOption[1]) + "))\n"
+                "        ((string-equal (car route) \"" +
+                str(pathOption[2]).capitalize() + "\")(state" +
+                numbersToWords.get(pathOption[1]) + " (cdr route)))\n"
             )
         program.append(
-            "        (t (setq *state* \"x\"))\n" +
+            "        (t (princ \"Illegal route.\"))\n" +
             "    )\n" +
             ")\n\n")
 
@@ -150,9 +138,9 @@ if len(sys.argv) == 3:
         "(DEFUN acceptState (n)\n    (cond\n")
     for i in accept_states:
         program.append(
-            "        ((equal n " + str(i) + ")(princ \"\\nLegal\"))\n")
+            "        ((equal n " + str(i) + ")(princ \"Route legal.\"))\n")
     program.append(
-        "        (t (princ \"\\nNot Legal\"))\n" +
+        "        (t (princ \"Route not legal.\"))\n" +
         "    )\n" +
         ")\n\n")
 
