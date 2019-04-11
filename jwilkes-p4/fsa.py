@@ -102,6 +102,7 @@ if len(sys.argv) == 3:
                       19: 'Nineteen', 20: 'Twenty'}
     part_two = open("part_two.lsp", "w")
     program = []
+
     # Begin demo function
     program.append("(DEFUN demo()\n" +
                    "    (setq *state* " + str(start_state) + ")\n" +
@@ -110,6 +111,7 @@ if len(sys.argv) == 3:
                    "        (close in)\n" +
                    "    )\n" +
                    ")\n\n")
+
     # Begin eval function
     program.append("(DEFUN eval(path)\n" +
                    "    (dotimes(n(length path))\n" +
@@ -120,21 +122,26 @@ if len(sys.argv) == 3:
         program.append(
             "            ((equal *state* " + str(i) + ") (state" + numbersToWords.get(i) + " route))\n")
     program.append(
-        "        )\n        (cond((equal n(- (length path) 1))(acceptState * state*)))\n    )\n)\n\n")
+        "            ((equal *state* \"x\") (princ \"\\nNot Legal\") (return))\n" +
+        "        )\n" +
+        "        (cond ((equal n (- (length path) 1)) (acceptState *state*)))\n" +
+        "    )\n" +
+        ")\n\n")
+
     # Begin state functions
     for i in range(number_of_states):
         pathOptions = filter(lambda x: x[0] == i, state_transitions)
         program.append(
             "(DEFUN state" + numbersToWords.get(i) + "(route)\n" +
-            "    (cond((null route) nil)\n")
+            "    (cond ((null route) nil)\n")
         for pathOption in pathOptions:
             program.append(
-                "        ((equal route " +
-                pathOption[2] + ")(setq * state * " +
+                "        ((equal route \"" +
+                pathOption[2] + "\")(setq *state* " +
                 str(pathOption[1]) + "))\n"
             )
         program.append(
-            "        (t(setq * state * \"x\"))\n" +
+            "        (t (setq *state* \"x\"))\n" +
             "    )\n" +
             ")\n\n")
 
@@ -145,7 +152,7 @@ if len(sys.argv) == 3:
         program.append(
             "        ((equal n " + str(i) + ")(princ \"\\nLegal\"))\n")
     program.append(
-        "        (t(princ \"\\nNot Legal\"))\n" +
+        "        (t (princ \"\\nNot Legal\"))\n" +
         "    )\n" +
         ")\n\n")
 

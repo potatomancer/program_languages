@@ -3,3 +3,6 @@ Should we have the drawing stuff in the python?
 Should we evaluate a path string in the python?
 
 Or is the python there solely to make the Lisp?
+
+If you only want the Lisp program, the Python program, and the User's manual in the submission, that means I should get rid of all code that had to do with those files right?
+
